@@ -1,0 +1,74 @@
+# agent-skills
+
+A growing personal collection of engineering skills for AI coding agents. The first workflow — R&D to ship — is orchestrated by `product-flow`; add more skills over time. Works with Claude Code (as a plugin or loose skills) and any agent the `skills` CLI supports.
+
+## What's inside
+
+```
+.
+├── .claude-plugin/
+│   ├── plugin.json         # plugin manifest (name, version, description)
+│   └── marketplace.json    # makes this repo installable as a marketplace
+├── skills/                 # one folder per skill — this is what agents discover
+│   ├── product-flow/SKILL.md
+│   ├── rnd-product-plan/SKILL.md
+│   └── run-the-plan/SKILL.md
+├── references/             # shared checklists skills can pull in
+│   └── definition-of-done.md
+├── templates/
+│   └── SKILL.template.md   # copy this to start a new skill
+├── docs/
+│   └── skill-anatomy.md    # the rules for writing a good skill
+├── README.md
+└── CLAUDE.md               # guidance for an agent editing THIS repo
+```
+
+The only hard convention: **every skill lives at `skills/<name>/SKILL.md`** with YAML frontmatter. Everything else is optional structure.
+
+## Install (three ways)
+
+**A. As a Claude Code plugin (this repo as its own marketplace)**
+```
+/plugin marketplace add barathrajd/agent-skills
+/plugin install agent-skills@agent-skills-marketplace
+```
+Skills then run as `/agent-skills:product-flow`, `/agent-skills:rnd-product-plan`, etc.
+
+**B. With the skills CLI (any agent)**
+```bash
+npx skills add barathrajd/agent-skills            # all skills
+npx skills add barathrajd/agent-skills --skill product-flow
+```
+
+**C. Loose, no packaging** — copy skill folders straight in:
+```bash
+cp -R skills/* ~/.claude/skills/            # global
+# or into a project:
+cp -R skills/* /path/to/project/.claude/skills/
+```
+
+> The manifest `name` (`agent-skills`) becomes the slash-command prefix. Want shorter commands? Change only `"name"` in `plugin.json` to something like `ash` → `/ash:product-flow`, while keeping the repo named `agent-skills`.
+
+## Skill index
+
+| Skill | Role | Use when |
+| --- | --- | --- |
+| `product-flow` | Orchestrator — installs the curated set and routes the lifecycle | "set up the flow", "start a feature", "what's next" |
+| `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes PLAN.md | "plan this", "spec this", "grill me" |
+| `run-the-plan` | Execution — builds PLAN.md in test-first slices | "build it", "run the plan", "implement this" |
+
+_Keep this table current — it's the fastest way for anyone (including an agent) to see what's here._
+
+## Add a new skill in the future
+
+1. `cp -R templates/SKILL.template.md skills/<new-name>/SKILL.md`
+2. Fill in the frontmatter (`name` must match the folder) and the sections. Read `docs/skill-anatomy.md` first.
+3. Add a row to the Skill index above.
+4. If `product-flow` should route to it, add it to that skill's phase table.
+5. Commit. Re-install or reload plugins to pick it up.
+
+## Golden rules
+
+- One active router only. `product-flow` is it — don't also enable another pack's meta-router.
+- Keep skills lean. Description earns its place in context on every turn; the body loads only when used.
+- Every skill ends in verifiable evidence, never "seems right".

@@ -1,0 +1,13 @@
+{
+  "name": "agent-skills-marketplace",
+  "owner": {
+    "name": "barathrajd"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "source": "./",
+      "description": "Personal engineering skills; R&D-to-ship workflow orchestrated by product-flow."
+    }
+  ]
+}
