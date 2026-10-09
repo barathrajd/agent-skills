@@ -1,0 +1,20 @@
+name: validate-skills
+
+on:
+  push:
+    paths:
+      - "skills/**"
+      - "scripts/validate.sh"
+      - ".github/workflows/validate.yml"
+  pull_request:
+    paths:
+      - "skills/**"
+      - "scripts/validate.sh"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate every SKILL.md
+        run: bash scripts/validate.sh ./skills

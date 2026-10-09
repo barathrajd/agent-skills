@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Pre-commit hook: block the commit if any SKILL.md fails validation.
+# Enable once with:  git config core.hooksPath .githooks
+set -u
+
+root="$(git rev-parse --show-toplevel)"
+
+if ! bash "$root/scripts/validate.sh" "$root/skills"; then
+  echo ""
+  echo "✗ Commit blocked — fix the skill validation errors above, then commit again."
+  echo "  (To bypass intentionally: git commit --no-verify)"
+  exit 1
+fi
