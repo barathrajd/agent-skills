@@ -17,17 +17,12 @@ Scope: client/UI/app state only. Server data belongs to TanStack Query (see the 
 2. **`microsoft/skills` → `zustand-store-ts`** (alternative).
    - Microsoft's zero-config TypeScript store template (store/action separation, `subscribeWithSelector`). Note: Microsoft-authored, **not** official Zustand.
 
-### Install (project-scoped, no `-g`)
-`CJHarmath` installs via manual copy or its `install.sh`; the reliable project-scoped path is a direct copy of the one folder into the **repo root** skills dir (shared by every package in a monorepo):
-```bash
-# clone once, then copy just the web-correct skill into the project:
-cp -r claude-agents-skills/skills/react-zustand-patterns ./.claude/skills/
-# or try the skills CLI:
-pnpm dlx skills add CJHarmath/claude-agents-skills --skill react-zustand-patterns
-# Microsoft alternative:
-pnpm dlx skills add microsoft/skills --skill zustand-store-ts
-```
-Pick **one** to avoid two overlapping store-pattern skills. `react-zustand-patterns` is the recommendation.
+### Install (project-scoped, pinned, user-confirmed)
+These are third-party instructions the agent will follow, so install one only after the user confirms. Use the pinned-commit procedure in `references/external-skills.md` (clone, check out the pinned SHA, read the skill, copy just that folder into the **repo root** skills dir so every package in a monorepo shares it). Skills to copy:
+- Recommended: `react-zustand-patterns` from `CJHarmath/claude-agents-skills`.
+- Alternative: `zustand-store-ts` from `microsoft/skills`.
+
+Do not run the repo's `install.sh`, `npx skills add`, or `dlx` for these, and do not use `-g`. Pick **one** to avoid two overlapping store-pattern skills. `react-zustand-patterns` is the recommendation.
 
 ## House conventions
 | Area | Rule |

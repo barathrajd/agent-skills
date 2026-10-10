@@ -1,0 +1,42 @@
+# External skills manifest
+
+Every third-party skill this repo points at, pinned to a commit. A skill that is not in this table must not be installed by any skill here. Rules for installing are in `references/supply-chain.md`.
+
+## Pinned sources
+
+Pins are the upstream `HEAD` observed on 2026-10-10. **Review status: pinned, contents not yet reviewed by the repo owner.** Review a skill (read its `SKILL.md` and any bundled files) before its first use, then change its status here.
+
+| Source | Skills used | Used by | Pinned commit | Reviewed |
+| --- | --- | --- | --- | --- |
+| `mattpocock/skills` | `grill-me`, `research`, `prototype`, `wayfinder`, `pr`, `retro` | `product-flow` | `49dd158d1076134a641b33efb035946536778336` | no |
+| `addyosmani/agent-skills` | `spec-driven-development`, `constraint-driven-development`, `planning-and-task-breakdown`, `incremental-implementation`, `test-driven-development`, `debugging-and-error-recovery`, `code-review-and-quality`, `security-and-hardening`, `shipping-and-launch` | `product-flow` | `1be8e34187e34647bb83adc3a1323b26ae6f6abe` | no |
+| `CJHarmath/claude-agents-skills` | `react-zustand-patterns`, `react-performance`, `react-testing`, `react-async-patterns`, `react-state-flows` | `zustand`, `react` | `185c964f7d5dcdb89829ee1cad2d792dd82efac1` | no |
+| `microsoft/skills` | `zustand-store-ts` | `zustand` | `d5741a1e9325adead3a28d1d203bb69283907e06` | no |
+| `DeckardGer/tanstack-agent-skills` | `tanstack-query` | `tanstack` | `b2fc14c974b2ca09b38de09c28237f240175205b` | no |
+| `TanStack/ai` | `tanstack-ai`, `tanstack-ai-migration` | `tanstack` (only for `@tanstack/ai` projects) | `c97ae8c270836decf1c8c0ec15f7422a227db88d` | no |
+
+Not skills but also pinned: `@tanstack/intent@0.5.5` (see the `tanstack` skill).
+
+## Install procedure (pinned, project-scoped)
+
+Run only after the user has confirmed the skill list. Replace `<owner>/<repo>`, `<sha>` and `<skill>` from the table.
+
+```bash
+tmp="$(mktemp -d)"
+git clone --quiet https://github.com/<owner>/<repo> "$tmp/src"
+git -C "$tmp/src" checkout --quiet <sha>
+# locate the skill folder (usually skills/<skill>/) and READ it before copying
+find "$tmp/src" -type d -name '<skill>' -not -path '*/.git/*'
+cat "$tmp/src/skills/<skill>/SKILL.md"
+cp -R "$tmp/src/skills/<skill>" ./.claude/skills/
+```
+
+Install at the repo root so every package in a monorepo shares it. Do not use `npx skills add`, `@latest`, or `-g` for these sources: they follow the default branch, so the content can change after the pin.
+
+If a skill reports a missing shared checklist, copy that pack's `references/` folder from the same pinned checkout after reading it. Do not install the whole pack.
+
+## Updating a pin
+
+1. Read the diff between the old and new commit for each skill in use.
+2. Update the commit here and set `Reviewed` accordingly.
+3. Commit with `chore(deps): bump <source> pin`.

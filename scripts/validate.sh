@@ -8,6 +8,10 @@
 #   - has a non-empty description:
 #   - (warning) description contains "use when" trigger phrases
 #
+# Then a supply-chain lint over fenced code blocks in skills/, references/,
+# docs/ and templates/: fails on pipe-to-shell installers, @latest, npx -y,
+# global installs, unpinned `skills add`, and dlx/npx without an exact version.
+#
 # Usage:
 #   bash scripts/validate.sh            # validate ./skills
 #   bash scripts/validate.sh path/to/skills
@@ -90,6 +94,66 @@ EOF
     echo "✓ $name"
   fi
 done
+
+# --- Supply-chain lint -------------------------------------------------------
+# Scans fenced code blocks in skills/, references/, docs/ and templates/ for
+# install commands that break references/supply-chain.md. Prose that merely
+# *mentions* a banned pattern is ignored; only commands in code blocks count.
+ROOT_DIR="$(cd "$SKILLS_DIR/.." && pwd)"
+
+lint_file() {
+  awk -v f="$1" '
+    function report(m) { if (!((NR, m) in seen)) { seen[NR, m] = 1; printf "%s:%d: %s\n", f, NR, m; bad = 1 } }
+    # Always-on (code block or inline): the two highest-risk patterns, written
+    # so that prose which merely names them (no URL, no package) does not match.
+    /(curl|wget)[^|]*https?:\/\/[^|]*\|[ \t]*(sudo[ \t]+)?(ba|z|da)?sh/ { report("pipe-to-shell installer") }
+    /[A-Za-z0-9]@latest/ { report("floating @latest tag") }
+    /^[ \t]*```/ { infence = !infence; next }
+    !infence { next }
+    /^[ \t]*#/ { next }
+    {
+      line = $0
+      if (line ~ /(curl|wget)[^|]*\|[ \t]*(sudo[ \t]+)?(ba|z|da)?sh/ ||
+          line ~ /(ba)?sh[ \t]+<\([ \t]*(curl|wget)/ ||
+          line ~ /eval[ \t]+"?\$\([ \t]*(curl|wget)/) report("pipe-to-shell installer")
+      if (line ~ /@latest/) report("floating @latest tag")
+      if (line ~ /npx[ \t]+(-y|--yes)/) report("npx auto-confirm flag")
+      if (line ~ /(^|[ \t])(-g|--global)([ \t]|$)/) report("global install flag")
+      if (line ~ /skills add/) report("unpinned skills add (use references/external-skills.md)")
+      n = split(line, t, /[ \t]+/)
+      for (i = 1; i <= n; i++) {
+        if ((t[i] == "dlx" && (t[i-1] == "pnpm" || t[i-1] == "yarn")) || t[i] == "npx" || t[i] == "bunx") {
+          j = i + 1
+          while (j <= n && t[j] ~ /^-/ && t[j] !~ /^--package=/) j++
+          tok = t[j]; sub(/^--package=/, "", tok)
+          if (tok != "" && tok !~ /[A-Za-z0-9]@[0-9]/) report("dlx/npx package without an exact version: " tok)
+        }
+      }
+    }
+    END { exit bad }
+  ' "$1"
+}
+
+lint_errors=0
+lint_files=0
+while IFS= read -r md; do
+  lint_files=$((lint_files + 1))
+  if ! out="$(lint_file "$md")"; then
+    while IFS= read -r l; do
+      [ -z "$l" ] && continue
+      echo "✗ lint ${l#"$ROOT_DIR"/}"
+    done <<EOF
+$out
+EOF
+    lint_errors=$((lint_errors + 1))
+  fi
+done < <(find "$ROOT_DIR/skills" "$ROOT_DIR/references" "$ROOT_DIR/docs" "$ROOT_DIR/templates" -name '*.md' -type f 2>/dev/null | sort)
+
+if [ "$lint_errors" -eq 0 ]; then
+  echo "✓ supply-chain lint ($lint_files file(s))"
+else
+  errors=$((errors + lint_errors))
+fi
 
 echo "----"
 echo "$count skill(s) checked, $errors error(s), $warnings warning(s)."

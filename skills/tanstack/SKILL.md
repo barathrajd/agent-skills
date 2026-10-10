@@ -27,12 +27,12 @@ Intent only wires skills for packages present in `node_modules`. Confirm what th
 > **Workspace note:** detect the repo shape first (see `references/workspace-detection.md`). In a monorepo, run `intent install` from the **repo root** — it writes skill permissions into the nearest owning `package.json` (per-package in a workspace) and the guidance block into a root config file. Run it again per package only if different packages use different TanStack packages.
 
 ### 2. Run intent install (project-scoped)
-From the repo root:
+Install writes to `package.json` and to your agent config, so first tell the user what it will change and get a yes (see `references/supply-chain.md`). Run `--dry-run` first to preview. Then, from the repo root:
 ```bash
-# pnpm shown — use your package manager's dlx/npx equivalent
-pnpm dlx @tanstack/intent@latest install
+# pnpm shown — use your package manager's dlx/npx equivalent. Exact version, no floating tag.
+pnpm dlx @tanstack/intent@0.5.5 install
 ```
-First run is interactive (needs a TTY, Node ≥ 20.12): choose **Enable all**, specific packages, a whole scope (`@tanstack/*`), or individual skills. It confirms once, then writes the guidance block. Use `--dry-run` to preview without writing.
+First run is interactive (needs a TTY, Node ≥ 20.12): choose **Enable all**, specific packages, a whole scope (`@tanstack/*`), or individual skills. Prefer the specific packages you use over "Enable all". It confirms once, then writes the guidance block. Bump the pinned version deliberately, after reading the release notes.
 
 ### 3. Review the generated mappings
 Install appends an `intent-skills` block (into `AGENTS.md` / `CLAUDE.md` / `.cursorrules` / copilot-instructions) like:
@@ -52,13 +52,11 @@ Open a fresh agent session and ask it to build something with TanStack. It shoul
 Re-run `intent install --review` after upgrading TanStack packages, or to change which skills/packages are enabled. The loaded content changes automatically with the installed version; the mappings don't need rewriting unless packages were added/removed.
 
 ## Discovery skills (optional, TanStack AI only)
-There are user-level discovery skills — `/plugin install tanstack-ai` or `npx skills add TanStack/ai -g --skill tanstack-ai tanstack-ai-migration` — but these are specific to **TanStack AI** (the LLM/chat library), not Query/Router. Only install them if you use `@tanstack/ai`.
+There are discovery skills for **TanStack AI** (the LLM/chat library), `tanstack-ai` and `tanstack-ai-migration`, but they are not for Query/Router. Only consider them if you use `@tanstack/ai`, and install them project-scoped (never `-g`) from the pinned commit in `references/external-skills.md`, after the user confirms.
 
 ## If Intent doesn't cover a package you need
-If `intent install` shows no skill for a package you rely on, that package hasn't shipped one yet. The best-known community fallback for Query/Router patterns is `DeckardGer/tanstack-agent-skills`:
-```bash
-pnpm dlx skills add DeckardGer/tanstack-agent-skills --skill tanstack-query
-```
+If `intent install` shows no skill for a package you rely on, that package hasn't shipped one yet. The best-known community fallback for Query/Router patterns is `DeckardGer/tanstack-agent-skills` (`tanstack-query`). It is third-party content: install it only after the user confirms, from the pinned commit using the procedure in `references/external-skills.md`, and read it first. Do not use unpinned `npx skills add` or `dlx`.
+
 Prefer the official Intent skill whenever it exists — only reach for the community pack to fill a gap.
 
 ## Rationalizations — and the rebuttals
@@ -71,6 +69,7 @@ Prefer the official Intent skill whenever it exists — only reach for the commu
 
 ## Red Flags — stop and fix
 - A community TanStack pack installed *instead of* running Intent on an installed package.
+- A floating `@latest` tag on the Intent install, an unpinned `dlx`/`npx skills add`, or a `-g` install; or any install run without the user confirming what it will change.
 - The `intent-skills` block missing after install, or `task:` lines that don't match the work.
 - `tanstack-ai` discovery skill installed in a repo that doesn't use `@tanstack/ai`.
 

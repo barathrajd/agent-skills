@@ -15,9 +15,9 @@ Get a project onto Vite+ so build, dev, test, lint, format, and git hooks run th
 ## Process
 
 ### 1. Install the CLI
-- **Global** (manages Node + package managers across projects): `curl -fsSL https://vite.plus | bash` (macOS/Linux) or the PowerShell line on Windows.
-- **Project-local only**: run through the package manager, e.g. `pnpm exec vp <cmd>`, or `pnpm dlx --package=vite-plus vp <cmd>`.
-- **Exit criterion:** `vp help` works (global) or `pnpm exec vp help` works (local).
+- **Project-local (default):** `pnpm add -D vite-plus@1.1.0`, commit the lockfile, and run through the package manager: `pnpm exec vp <cmd>`. For a one-off, `pnpm dlx --package=vite-plus@1.1.0 vp <cmd>`. Bump the pinned version deliberately (see `references/supply-chain.md`).
+- **Global** (manages Node + package managers across projects): the installer at viteplus.dev is a shell script. Do not run it through a pipe (`curl … | bash`) and do not run it as the agent. If the user wants it, point them to the official docs and tell them to download the script, read it, and run it themselves.
+- **Exit criterion:** `pnpm exec vp help` works (local), or the user confirms `vp help` works after their own global install.
 
 ### 2. Create or migrate
 - New project: `vp create` → pick template, target dir, package manager.
@@ -51,6 +51,7 @@ Run per-package with `vp -C <path> <cmd>`. Each package's `vite.config.ts` carri
 ## Red Flags — stop and fix
 - `defineConfig` imported from `vite`, not `vite-plus`, while using Vite+ keys.
 - husky installed alongside Vite+ hooks.
+- A shell installer piped into `bash`/`sh`, or run by the agent, instead of a pinned project-local install.
 - Node runtime below Vite+'s requirement for staged checks (22.22.1+ / 24.11.0+).
 
 ## Verification — done when

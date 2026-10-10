@@ -31,8 +31,8 @@ Get a project onto Rstack so build, dev, test, lint, format, docs, and git hooks
 
 ### 1. Check the runtime and install
 Rstack CLI needs **Node.js 22.18.0+ or 24.3.0+** (or Deno/Bun).
-- New project: `pnpm create rstack@latest` (templates: app/lib/doc/monorepo across React, Vue, Svelte, Solid, etc.). Non-interactive: `npx -y create-rstack@latest my-app -t app-react-ts`.
-- Existing project: `pnpm add -D rstack`, then follow the migration guide (rstack.rs/guide/migration — it has a migration skill).
+- New project: `pnpm create rstack@3.4.3` (templates: app/lib/doc/monorepo across React, Vue, Svelte, Solid, etc.). Non-interactive: `pnpm dlx create-rstack@3.4.3 my-app -t app-react-ts`. Versions are pinned, never `@latest`, and no `npx -y` (see `references/supply-chain.md`).
+- Existing project: `pnpm add -D rstack@0.8.3` and commit the lockfile, then follow the migration guide (rstack.rs/guide/migration — it has a migration skill). Bump the pin deliberately.
 - **Exit criterion:** `pnpm rs --help` resolves (`rstack` is an alias for `rs`).
 
 ### 2. Configure rstack.config.ts
@@ -73,6 +73,7 @@ Share build/test/lint/format settings with `define.extends([sharedConfig])`; see
 
 ## Red Flags — stop and fix
 - A second hook manager (husky) installed alongside `rs hooks`.
+- `@latest`, `npx -y`, or any unpinned scaffolder/CLI version in an install command.
 - Node runtime below 22.18.0 / 24.3.0.
 - A `define.*()` API called more than once.
 - Asserting a tool option not confirmed against its linked docs.

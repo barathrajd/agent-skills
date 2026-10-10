@@ -4,17 +4,30 @@ on:
   push:
     paths:
       - "skills/**"
+      - "references/**"
+      - "docs/**"
+      - "templates/**"
       - "scripts/validate.sh"
       - ".github/workflows/validate.yml"
   pull_request:
     paths:
       - "skills/**"
+      - "references/**"
+      - "docs/**"
+      - "templates/**"
       - "scripts/validate.sh"
+
+# Read-only: validation never needs to write to the repo.
+permissions:
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate every SKILL.md
+      # Pinned to a commit, not a mutable tag. Bump deliberately (see references/supply-chain.md).
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate skills and run supply-chain lint
         run: bash scripts/validate.sh ./skills

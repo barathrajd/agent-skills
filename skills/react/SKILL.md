@@ -48,15 +48,8 @@ These are *supplementary* references, not house authority. The strongest matches
 - `react-testing` — Jest + React Testing Library + MSW.
 - `react-async-patterns`, `react-state-flows` — async flows and multi-step operations.
 
-Project-scoped install (no `-g`), run from the **repo root** (so every package in a monorepo shares them):
-```bash
-# reliable: copy the folders straight in
-# (clone the repo once, then:)
-cp -r claude-agents-skills/skills/react-performance ./.claude/skills/
-cp -r claude-agents-skills/skills/react-testing ./.claude/skills/
-# or try the skills CLI (works on repos exposing a skills/ dir):
-pnpm dlx skills add CJHarmath/claude-agents-skills --skill react-performance
-```
+These are third-party instructions the agent will follow, so install one only after the user confirms. Use the pinned-commit procedure in `references/external-skills.md`, run from the **repo root** (so every package in a monorepo shares them), project-scoped, and read each skill before copying it. Do not use unpinned `npx skills add` / `dlx` or `-g`.
+
 Skip the repo's `backend` (Python/FastAPI) and `rn-*` (React Native) skills — they don't match this stack.
 
 ## Process
