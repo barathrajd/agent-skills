@@ -18,7 +18,14 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── write-adr/SKILL.md            # → docs/adr/NNNN-*.md
 │   ├── run-the-plan/SKILL.md         # builds the plan in test-first slices
 │   ├── release-plan/SKILL.md         # → RELEASE.md
-│   └── setup-release-please/SKILL.md # wires up release automation
+│   ├── setup-release-please/SKILL.md # wires up release automation
+│   ├── setup-vite-plus/SKILL.md      # Vite+ (vp) toolchain setup
+│   ├── setup-rstack/SKILL.md         # Rstack (rs) toolchain setup
+│   ├── setup-module-federation/SKILL.md # micro-frontends / remotes
+│   ├── setup-commit-lint/SKILL.md    # Conventional Commits + staged checks
+│   ├── react/SKILL.md                # React house conventions + router
+│   ├── tanstack/SKILL.md             # official TanStack skills via Intent
+│   └── zustand/SKILL.md              # Zustand client-state conventions
 ├── references/
 │   └── definition-of-done.md    # shared checklist skills pull in
 ├── templates/
@@ -81,6 +88,9 @@ cp -R skills/* /path/to/project/.claude/skills/
 | `run-the-plan` | Execution — builds PLAN.md in test-first slices | "build it", "run the plan", "implement this" |
 | `release-plan` | Release planning — maintains RELEASE.md (feature-based versioned cuts) | "plan a release", "what's in the next release" |
 | `setup-release-please` | Release automation — wires up GitHub-side releases from Conventional Commits | "set up releases", "add release-please" |
+| `react` | React umbrella — house conventions + routes to tanstack/zustand | "react", "react best practices", "structure this component" |
+| `tanstack` | Official TanStack skills via Intent (version-synced) | "tanstack", "intent install", "query/router best practices" |
+| `zustand` | Zustand client-state conventions (no official skill exists) | "zustand", "set up a store", "selectors", "persist" |
 
 _Keep this table current — it's the fastest way for anyone (including an agent) to see what's here._
 

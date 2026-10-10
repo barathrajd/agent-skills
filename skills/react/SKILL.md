@@ -1,0 +1,81 @@
+---
+name: react
+description: The React umbrella for this stack — house conventions for components, hooks, data fetching, and client state, plus pointers to the dedicated tanstack and zustand skills. Scoped to React 18+, TypeScript, Vite+, TanStack Query, and Zustand. Use when the user says "react", "react conventions", "react best practices", "how should I structure this component/hook", or starts React work in this repo.
+---
+
+# React
+
+## Overview
+One entry point for React work in this stack. It encodes how *we* write React here and routes the two big external concerns to their own skills:
+- **Data fetching / server state** → `tanstack` (official TanStack Intent).
+- **Client state** → `zustand`.
+
+Everything else (component shape, hooks, TypeScript, rendering, testing) lives below. Scope: React 18+, TypeScript, Vite+, no React Native. For `grand-line`: React front end in `apps/web`, Node/Express/Postgres/Drizzle behind it.
+
+## When to Use
+- Starting or reviewing a React component, hook, or feature in this repo.
+- Deciding where state belongs (server vs client vs local).
+- Setting up a new contributor on the house React conventions.
+
+## House conventions (the short version)
+| Area | Rule |
+| --- | --- |
+| Server state | TanStack Query owns anything fetched from the API. Never mirror server data into Zustand. See the `tanstack` skill. |
+| Client state | Zustand for cross-component UI/app state; `useState` for local. See the `zustand` skill. |
+| Components | Function components only. Keep them presentational; push data/effects to hooks. |
+| Hooks | One concern per custom hook. Follow the rules of hooks; stable deps; no conditional hooks. |
+| TypeScript | No `any` in component/hook public surfaces. Props typed explicitly; infer internals. |
+| Effects | `useEffect` is a last resort — not for deriving data (compute in render) or syncing server state (that's Query). |
+| Rendering | Measure before memoizing. `memo`/`useMemo`/`useCallback` only with evidence of a real re-render cost. |
+| Files | Co-locate component, hook, and test. One public component per file. |
+
+## Routing — where each concern goes
+| Concern | Go to |
+| --- | --- |
+| Fetching, caching, mutations, invalidation, pagination, prefetch | `tanstack` |
+| Global/UI client state, stores, selectors, persistence | `zustand` |
+| Component/hook structure, TS, effects, rendering | this skill |
+
+## Optional external React skills (vetted, use with judgment)
+These are *supplementary* references, not house authority. The strongest matches for this stack (React web, no RN) come from `CJHarmath/claude-agents-skills` — note it's a small personal repo (low traction), so read the content before trusting it:
+- `react-performance` — memoization, virtualization, code splitting.
+- `react-testing` — Jest + React Testing Library + MSW.
+- `react-async-patterns`, `react-state-flows` — async flows and multi-step operations.
+
+Project-scoped install (no `-g`), run from the repo root:
+```bash
+# reliable: copy the folders straight in
+# (clone the repo once, then:)
+cp -r claude-agents-skills/skills/react-performance ./.claude/skills/
+cp -r claude-agents-skills/skills/react-testing ./.claude/skills/
+# or try the skills CLI (works on repos exposing a skills/ dir):
+pnpm dlx skills add CJHarmath/claude-agents-skills --skill react-performance
+```
+Skip the repo's `backend` (Python/FastAPI) and `rn-*` (React Native) skills — they don't match this stack.
+
+## Process
+1. **Classify the state.** Server data → `tanstack`. Shared client state → `zustand`. Local → `useState`. Don't duplicate across layers.
+2. **Shape the component.** Presentational; data and effects in hooks. Explicit prop types.
+3. **Reach for the right skill.** Fetching/mutations → `tanstack`. Stores/selectors → `zustand`.
+4. **Only optimize with evidence.** Profile first; memoize second.
+5. **Co-locate a test.** React Testing Library; test behavior, not implementation.
+
+## Rationalizations — and the rebuttals
+| Excuse | Rebuttal |
+| --- | --- |
+| "Keep the fetched list in a Zustand store so it's easy to read." | Server state belongs to TanStack Query. Mirroring it causes stale/double-source bugs. Use the `tanstack` skill. |
+| "A `useEffect` to sync the API into local state is fine." | That's exactly what Query removes. Effects for server sync are a smell. |
+| "Wrap everything in `useMemo`/`memo` to be safe." | Unmeasured memoization adds noise and bugs. Profile, then optimize the real cost. |
+| "This component can do its own fetching inline." | Push data access into a hook so it's testable and cache-aware. |
+
+## Red Flags — stop and fix
+- Server data stored in Zustand or synced via `useEffect`.
+- `any` on a component or hook's public types.
+- Memoization added with no profiling evidence.
+- A component mixing fetching, business logic, and presentation.
+
+## Verification — done when
+- State lives in exactly one layer (server→Query, client→Zustand, local→useState).
+- Components are presentational; data/effects isolated in hooks.
+- `tanstack` and `zustand` were used for their concerns, not reinvented here.
+- A co-located test exercises behavior and passes.
