@@ -33,7 +33,7 @@ Don't assume a layout. Figure out the repo shape before writing files — it cha
 | TypeScript | No `any` in component/hook public surfaces. Props typed explicitly; infer internals. |
 | Effects | `useEffect` is a last resort — not for deriving data (compute in render) or syncing server state (that's Query). |
 | Rendering | Measure before memoizing. `memo`/`useMemo`/`useCallback` only with evidence of a real re-render cost. |
-| Files | Co-locate component, hook, and test. One public component per file. |
+| Files | Co-locate component, hook, and test. One public component per file. Folder layout for the app/monorepo/library: see the `project-structure` skill. |
 
 ## Routing — where each concern goes
 | Concern | Go to |
