@@ -54,6 +54,7 @@ Assess which phase the user is in from what they ask and what artifacts exist (`
 | --- | --- | --- |
 | S. Standing setup | `bootstrap-context` | New repo, no `AGENTS.md`; "set up the rules" (once per repo) |
 | S. Toolchain setup | `setup-vite-plus` or `setup-rstack` | Standing up / migrating the build toolchain |
+| S. Module Federation | `setup-module-federation` | Sharing modules across apps / micro-frontends |
 | S. Commit workflow | `setup-commit-lint` | Enforcing Conventional Commits + staged checks |
 | R. Roadmap | `roadmap` | Deciding/reordering what to build next; "what's next", "prioritize" |
 | 0. Big effort? | `wayfinder` | Large/ambiguous initiative that spans many decisions |
