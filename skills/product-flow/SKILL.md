@@ -52,6 +52,7 @@ Assess which phase the user is in from what they ask and what artifacts exist (`
 
 | Phase | Invoke | Trigger / signal |
 | --- | --- | --- |
+| R. Roadmap | `roadmap` | Deciding/reordering what to build next; "what's next", "prioritize" |
 | 0. Big effort? | `wayfinder` | Large/ambiguous initiative that spans many decisions |
 | 1. Shape the idea | `grill-me`, then `research` / `prototype` as unknowns appear | New idea, vague ask, "what should we build" |
 | 2. Spec | `spec-driven-development` (`/spec`) | Grilled understanding exists, needs a PRD |
@@ -61,7 +62,8 @@ Assess which phase the user is in from what they ask and what artifacts exist (`
 | 5. Build | `incremental-implementation` (`/build`) + `test-driven-development` | Tasks exist, writing code |
 | 6. Debug | `debugging-and-error-recovery` | Tests fail, build breaks, odd behavior |
 | 7. Review | `code-review-and-quality` (`/review`) + `security-and-hardening` | Slice done, before merge |
-| 8. Ship | `shipping-and-launch` (`/ship`) + `pr` | Reviewed, ready to deploy |
+| 8. Release | `release-plan` | Grouping features into a planned, versioned release |
+| 8b. Ship | `shipping-and-launch` (`/ship`) + `pr` | Release gate passed, deploying |
 | 9. Learn | `retro` | After shipping — tune skills and CONSTRAINTS.md |
 | Any phase | `write-adr` | A non-trivial or hard-to-reverse decision was just made |
 
@@ -71,13 +73,15 @@ Enforce these paths so every project lays out the same way:
 | Phase | File | Skill |
 | --- | --- | --- |
 | Standing (repo-wide) | `AGENTS.md`, `GLOSSARY.md` | hand-authored / bootstrap |
+| Strategic | `ROADMAP.md` | `roadmap` |
 | 1. R&D | `RESEARCH.md` (optional) | `research` |
 | 2. Spec | `SPEC.md` | `spec-driven-development` |
 | 2b. Design | `DESIGN.md` | `design-doc` |
 | 3. Quality bar | `CONSTRAINTS.md` | `constraint-driven-development` |
 | 1–5. Plan | `PLAN.md` | `rnd-product-plan` → updated by `run-the-plan` |
 | Any phase | `docs/adr/NNNN-*.md` | `write-adr` |
-| 8. Ship | PR body (not a file) | `pr` |
+| 8. Release | `RELEASE.md` | `release-plan` |
+| 8b. Ship | PR body / `CHANGELOG.md` | `pr` |
 | 9. Learn | `RETRO.md` (optional) | `retro` |
 
 **Lean path (default):** the local `rnd-product-plan` covers phases 1–2 and `run-the-plan` covers phases 5–7. Use those two for everyday work; reach into the pack skills above only when a project needs the extra hardening, security, launch, or large-effort mapping.

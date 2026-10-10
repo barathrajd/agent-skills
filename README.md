@@ -54,10 +54,12 @@ cp -R skills/* /path/to/project/.claude/skills/
 | Skill | Role | Use when |
 | --- | --- | --- |
 | `product-flow` | Orchestrator — installs the curated set and routes the lifecycle | "set up the flow", "start a feature", "what's next" |
+| `roadmap` | Strategic sequencing — maintains ROADMAP.md (Now/Next/Later) | "roadmap", "prioritize", "what's next" |
 | `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes PLAN.md | "plan this", "spec this", "grill me" |
 | `design-doc` | Technical design — writes DESIGN.md before non-trivial builds | "design this", "how should we build X" |
 | `write-adr` | Knowledge sharing — records decisions as docs/adr/NNNN-*.md | "record this decision", "write an ADR" |
 | `run-the-plan` | Execution — builds PLAN.md in test-first slices | "build it", "run the plan", "implement this" |
+| `release-plan` | Release planning — maintains RELEASE.md (feature-based versioned cuts) | "plan a release", "what's in the next release" |
 
 _Keep this table current — it's the fastest way for anyone (including an agent) to see what's here._
 
