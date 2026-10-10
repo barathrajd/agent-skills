@@ -61,6 +61,7 @@ cp -R skills/* /path/to/project/.claude/skills/
 | `write-adr` | Knowledge sharing — records decisions as docs/adr/NNNN-*.md | "record this decision", "write an ADR" |
 | `run-the-plan` | Execution — builds PLAN.md in test-first slices | "build it", "run the plan", "implement this" |
 | `release-plan` | Release planning — maintains RELEASE.md (feature-based versioned cuts) | "plan a release", "what's in the next release" |
+| `setup-release-please` | Release automation — wires up GitHub-side releases from Conventional Commits | "set up releases", "add release-please" |
 
 _Keep this table current — it's the fastest way for anyone (including an agent) to see what's here._
 
