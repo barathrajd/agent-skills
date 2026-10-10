@@ -23,12 +23,12 @@ Inspect `package.json` and the repo:
 
 ### 2. Install the hook dispatcher
 - Vite+: `vp config` (installs dispatcher, sets `core.hooksPath`; hooks live in `.vite-hooks/`).
-- Rstack: `rs hooks` install per rstack.rs/guide/git-hooks.
+- Rstack: add `"prepare": "rs hooks"` to `package.json` and run it once (sets `core.hooksPath` to `.rstack/hooks/_`; hook scripts live in `.rstack/hooks`; use `rs hooks --force` if another path exists).
 - husky: `pnpm add -D husky && pnpm exec husky init`.
 
 ### 3. Pre-commit — staged checks
 - Vite+: add a `staged` block to `vite.config.ts` (`staged: { '*': 'vp check --fix' }`) and put `vp staged` in `.vite-hooks/pre-commit`.
-- Rstack: configure staged tasks per the docs and put `rs staged` in the pre-commit hook.
+- Rstack: add `define.staged({ ... })` to `rstack.config.ts` (e.g. `'*.{ts,tsx}': ['rs lint --fix', 'rs fmt']`) and put `rs staged` in `.rstack/hooks/pre-commit`.
 - husky: `pnpm add -D lint-staged`, add a `lint-staged` block to `package.json`, put `pnpm exec lint-staged` in `.husky/pre-commit`.
 
 ### 4. Commit-message — Conventional Commits
@@ -42,11 +42,11 @@ pnpm add -D @commitlint/cli @commitlint/config-conventional
 ```
 commit-msg hook contents by manager:
 - Vite+ (`.vite-hooks/commit-msg`): `vp exec commitlint --edit "$1"`
-- Rstack (project hook): `rs exec commitlint --edit "$1"` (or `pnpm exec commitlint --edit "$1"`)
+- Rstack (`.rstack/hooks/commit-msg`): `pnpm exec commitlint --edit "$1"`
 - husky (`.husky/commit-msg`): `pnpm exec commitlint --edit "$1"`
 
 ### 5. Commit the project-owned hook scripts
-`.vite-hooks/*` / husky `.husky/*` scripts and the config files are committed; generated dispatcher internals (e.g. `.vite-hooks/_`) stay gitignored.
+`.vite-hooks/*` / `.rstack/hooks/*` / husky `.husky/*` scripts and the config files are committed; generated dispatcher internals (`.vite-hooks/_`, `.rstack/hooks/_`) stay gitignored.
 
 ### 6. Verify
 Bad message is rejected; a conventional message passes and runs the pre-commit checks.
