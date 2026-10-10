@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.0](https://github.com/barathrajd/agent-skills/compare/v0.2.1...v0.3.0) (2026-10-10)
+
+
+### Features
+
+* **project-structure:** support Rstack and Vite+, add packages/core and packages/ui ([05f905c](https://github.com/barathrajd/agent-skills/commit/05f905c0dbee11662f4ae194010f33e1b11ba131))
+* **project-structure:** support Rstack and Vite+, add packages/core and packages/ui ([a6dc7e9](https://github.com/barathrajd/agent-skills/commit/a6dc7e98792f512598f04d5bedd65d8b0351e6a9))
+* **skills:** add base-ui and stylex skills; make skills self-contained ([6ea5477](https://github.com/barathrajd/agent-skills/commit/6ea54775ca3f7afd1de21c824d4c3e26ace6b3ed))
+
 ## [0.2.1](https://github.com/barathrajd/agent-skills/compare/v0.2.0...v0.2.1) (2026-10-10)
 
 
