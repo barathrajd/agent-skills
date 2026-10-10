@@ -8,6 +8,9 @@
 #   - has a non-empty description:
 #   - (warning) description contains "use when" trigger phrases
 #
+# Also fails if a skill links to a references/ file it does not ship, or if a
+# vendored shared reference is stale (see scripts/sync-references.sh).
+#
 # Then a supply-chain lint over fenced code blocks in skills/, references/,
 # docs/ and templates/: fails on pipe-to-shell installers, @latest, npx -y,
 # global installs, unpinned `skills add`, and dlx/npx without an exact version.
@@ -153,6 +156,36 @@ if [ "$lint_errors" -eq 0 ]; then
   echo "✓ supply-chain lint ($lint_files file(s))"
 else
   errors=$((errors + lint_errors))
+fi
+
+# --- Self-contained skills ---------------------------------------------------
+# The skills CLI installs only a skill's own folder, so every references/<file>.md
+# a skill links to must exist inside that skill's folder.
+dangling=0
+for dir in "$SKILLS_DIR"/*/; do
+  [ -d "$dir" ] || continue
+  sname="${dir%/}"; sname="${sname##*/}"
+  while IFS= read -r md; do
+    while IFS=: read -r ln ref; do
+      [ -z "$ref" ] && continue
+      if [ ! -f "${dir}${ref}" ]; then
+        echo "✗ dangling ${md#"$ROOT_DIR"/}:$ln links to $ref, which this skill does not ship (vendor it via scripts/shared-references.txt or move it into the skill)"
+        dangling=$((dangling + 1))
+      fi
+    done < <(grep -noE 'references/[A-Za-z0-9._/-]+\.md' "$md" 2>/dev/null)
+  done < <(find "$dir" -name '*.md' -type f | sort)
+done
+if [ "$dangling" -eq 0 ]; then
+  echo "✓ every skill is self-contained (no dangling references/ links)"
+else
+  errors=$((errors + dangling))
+fi
+
+# Vendored shared references must match their source of truth.
+if [ -f "$ROOT_DIR/scripts/sync-references.sh" ] && [ -f "$ROOT_DIR/scripts/shared-references.txt" ]; then
+  if ! bash "$ROOT_DIR/scripts/sync-references.sh" --check; then
+    errors=$((errors + 1))
+  fi
 fi
 
 echo "----"

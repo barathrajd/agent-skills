@@ -9,6 +9,7 @@ description: The React umbrella for this stack — house conventions for compone
 One entry point for React work in this stack. It encodes how *we* write React here and routes the two big external concerns to their own skills:
 - **Data fetching / server state** → `tanstack` (official TanStack Intent).
 - **Client state** → `zustand`.
+- **Primitive components / styling** → `base-ui` / `stylex`, when the project uses those libraries.
 
 Everything else (component shape, hooks, TypeScript, rendering, testing) lives below. Scope: React 18+ and TypeScript, bundler-agnostic (Vite / Vite+ / Rstack / Next), web only (not React Native).
 
@@ -40,6 +41,8 @@ Don't assume a layout. Figure out the repo shape before writing files — it cha
 | --- | --- |
 | Fetching, caching, mutations, invalidation, pagination, prefetch | `tanstack` |
 | Global/UI client state, stores, selectors, persistence | `zustand` |
+| Primitive components (dialog, menu, select, popover), `render` composition | `base-ui` |
+| Styling, tokens, themes, typed style props | `stylex` |
 | Component/hook structure, TS, effects, rendering | this skill |
 
 ## Optional external React skills (vetted, use with judgment)

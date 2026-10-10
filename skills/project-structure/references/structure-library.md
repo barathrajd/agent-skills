@@ -65,7 +65,7 @@ packages/ui/src/
 ├── styles/
 └── internal/
 ```
-One public component per file; export each through `index.ts` only after it is reusable.
+One public component per file; export each through `index.ts` only after it is reusable. If the project builds on Base UI and StyleX, the `base-ui` and `stylex` skills cover how primitives are wrapped and styled here; `tokens/` holds the StyleX variables.
 
 ## Variations
 - **Multiple entry points:** declare each subpath in `exports` and the matching entries in the library build config (Rslib, or Vite+ `pack`); keep one `index.ts` per entry.
