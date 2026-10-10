@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/barathrajd/agent-skills/compare/v0.2.0...v0.2.1) (2026-10-10)
+
+
+### Bug Fixes
+
+* **security:** pin installs, gate third-party skills, and lint for supply-chain risks ([ec1c099](https://github.com/barathrajd/agent-skills/commit/ec1c09937be8f90cef73e471eb24cf3345a973ce))
+* **security:** pin installs, gate third-party skills, and lint for supply-chain risks ([69fae22](https://github.com/barathrajd/agent-skills/commit/69fae22c6462e53b31cb51114f7c18a7174ee428))
+
 ## [0.2.0](https://github.com/barathrajd/agent-skills/compare/v0.1.0...v0.2.0) (2026-10-10)
 
 
