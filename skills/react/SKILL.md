@@ -33,7 +33,7 @@ Don't assume a layout. Figure out the repo shape before writing files — it cha
 | TypeScript | No `any` in component/hook public surfaces. Props typed explicitly; infer internals. |
 | Effects | `useEffect` is a last resort — not for deriving data (compute in render) or syncing server state (that's Query). |
 | Rendering | Measure before memoizing. `memo`/`useMemo`/`useCallback` only with evidence of a real re-render cost. |
-| Files | Co-locate component, hook, and test. One public component per file. |
+| Files | Co-locate component, hook, and styles; tests go in the top-level `tests/` folder (outside `src/`), mirroring `src/`. One public component per file. Folder layout for the app/monorepo/library: see the `project-structure` skill. |
 
 ## Routing — where each concern goes
 | Concern | Go to |
@@ -64,7 +64,7 @@ Skip the repo's `backend` (Python/FastAPI) and `rn-*` (React Native) skills — 
 2. **Shape the component.** Presentational; data and effects in hooks. Explicit prop types.
 3. **Reach for the right skill.** Fetching/mutations → `tanstack`. Stores/selectors → `zustand`.
 4. **Only optimize with evidence.** Profile first; memoize second.
-5. **Co-locate a test.** React Testing Library; test behavior, not implementation.
+5. **Add a test in `tests/`.** Mirror the source path, outside `src/`. React Testing Library; test behavior, not implementation.
 
 ## Rationalizations — and the rebuttals
 | Excuse | Rebuttal |
@@ -84,4 +84,4 @@ Skip the repo's `backend` (Python/FastAPI) and `rn-*` (React Native) skills — 
 - State lives in exactly one layer (server→Query, client→Zustand, local→useState).
 - Components are presentational; data/effects isolated in hooks.
 - `tanstack` and `zustand` were used for their concerns, not reinvented here.
-- A co-located test exercises behavior and passes.
+- A test under `tests/` (mirroring the source path) exercises behavior and passes.
