@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/barathrajd/agent-skills/compare/v0.1.0...v0.2.0) (2026-10-10)
+
+
+### Features
+
+* add react, tanstack, and zustand skills ([a0ec954](https://github.com/barathrajd/agent-skills/commit/a0ec9542c297913ce829c4a0418fd4f2c216fadb))
+* add setup-module-federation skill ([bb3e5f2](https://github.com/barathrajd/agent-skills/commit/bb3e5f28cd4fa8b51b1191dd0f5b8401485c0551))
+* add setup-release-please skill ([d7a8f3a](https://github.com/barathrajd/agent-skills/commit/d7a8f3aa11b39eaa5039637597db5892ff01781c))
+* add setup-vite-plus, setup-rstack, setup-commit-lint skills ([003b185](https://github.com/barathrajd/agent-skills/commit/003b18578bc6b9615dbd08e44ae7b74715563949))
+* harden setup-rstack with full toolchain references ([950d82f](https://github.com/barathrajd/agent-skills/commit/950d82ffe938268bb85d965386f182675342c4a6))
+* **project-structure:** add folder-structure skill for app, monorepo, library ([4727c56](https://github.com/barathrajd/agent-skills/commit/4727c5632a2398429d712d30d1bb1365695656c5))
+* **project-structure:** keep tests in top-level tests/ outside src ([a5a6ac9](https://github.com/barathrajd/agent-skills/commit/a5a6ac93b9d57ca8d9466ddabb33c166ff9f6bcf))
+
 ## 0.1.0 (2026-10-10)
 
 
