@@ -15,13 +15,14 @@ Applies to a pnpm workspace (with or without Turborepo/Nx) holding several apps 
 ├── .claude/skills/          # skills installed once at the root
 ├── apps/
 │   └── <app>/               # own package.json + rstack.config.ts (define.app, define.test)
-│       └── src/             # laid out per references/structure-app.md
+│       ├── src/             # laid out per references/structure-app.md
+│       └── tests/           # outside src/, mirrors src/
 └── packages/
     ├── ui/                  # design-system library
     ├── utils/               # leaf library: pure helpers, no framework
     └── <domain>/            # shared business logic / api clients / types
 ```
-Each package follows `references/structure-library.md`.
+Each package follows `references/structure-library.md`, including its own `tests/` folder. Tests are per project (`apps/<app>/tests`, `packages/<pkg>/tests`); there is no repo-wide `tests/` at the root.
 
 ## Dependency rule
 `apps → domain packages → ui, utils` — imports only point down.

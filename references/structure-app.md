@@ -28,6 +28,16 @@ Applies to a single-package React app (Rsbuild/Rstack or Vite+). Feature-first, 
     └── assets/
 ```
 
+Tests live in a top-level `tests/` folder, outside `src/`, mirroring the `src/` layout:
+```
+tests/
+├── setup.ts                # global test setup, shared helpers, fixtures, mocks
+├── features/<feature>/     # mirrors src/features/<feature>
+├── components/             # mirrors src/components
+├── hooks/
+└── lib/
+```
+
 ## Dependency rule
 `app → routes → features → shared (components, hooks, lib)` — imports only point right/down.
 - A feature may import shared code, never `routes/` or `app/`.
@@ -35,7 +45,10 @@ Applies to a single-package React app (Rsbuild/Rstack or Vite+). Feature-first, 
 - Shared code never imports from `features/`.
 
 ## Rules of placement
-- Co-locate the test next to the file (`Button.tsx`, `Button.test.tsx`); one public component per file.
+- Tests go in `tests/`, never inside `src/`. Mirror the source path: `src/components/Button.tsx` → `tests/components/Button.test.tsx`. One public component per file.
+- Tests import the code under test through a path alias (`@/` → `src/`) or the feature's `index.ts`, not deep relative paths like `../../src/...`. Add the alias to `tsconfig.json` and the bundler/test config, and include `tests/` in `tsconfig.json` so it is type-checked.
+- Shared test helpers, fixtures, and mocks live in `tests/` (e.g. `tests/setup.ts`, `tests/helpers/`), not in `src/`.
+- Confirm `define.test()` picks up `tests/` (check the Rstest `include` default at rstest.rs/config) and set `include` explicitly if it does not.
 - Server state lives in `features/<x>/api` (TanStack Query); shared client state in `features/<x>/store` (Zustand); local state stays in the component. See the `react` skill.
 - Promote code to shared only when a second feature needs it.
 - Avoid `utils/` catch-alls: name `lib/` modules by what they do (`lib/format-date.ts`).

@@ -30,7 +30,7 @@ If the repo already has a layout, propose the smallest move toward the target, n
 - **Exit criterion:** the target tree is written down, with each existing top-level folder mapped to where it ends up.
 
 ### 3. Scaffold or migrate in slices
-Create folders and move code one feature/package at a time. Each slice keeps the build green. Put config where the reference says (root = shared lint/format/hooks; package = build/test). Add `index.ts` public entries as you go.
+Create folders and move code one feature/package at a time. Each slice keeps the build green. Put config where the reference says (root = shared lint/format/hooks; package = build/test). Add `index.ts` public entries as you go. Move any tests found inside `src/` into the package's top-level `tests/`, mirroring the source path, and fix imports to use the `@/` alias or public entry.
 - **Exit criterion:** every moved slice passes `rs check` + `rs build` (or the repo's equivalents) before the next slice starts.
 
 ### 4. Enforce the boundaries
@@ -48,6 +48,7 @@ Any non-obvious choice (layer-first vs feature-first, package scope, where share
 | "Import the other feature's file directly, it's quicker." | Deep imports make features un-movable. Import only through that feature's `index.ts`. |
 | "Move everything at once, then fix the build." | A broken build hides which move caused what. Migrate in green slices. |
 | "Export everything from the library root." | The `exports` map is your public API; every extra export is a promise to maintain. |
+| "Put the test next to the file, it's easier to find." | This repo keeps tests in a top-level `tests/` folder, outside `src/`, mirroring the source path. `src/` stays production code only. |
 | "Add build config to the monorepo root so it's shared." | Rstack does not merge root and project config. Root holds lint/fmt/staged; each project holds its own build/test. |
 
 ## Red Flags — stop and fix
@@ -55,10 +56,12 @@ Any non-obvious choice (layer-first vs feature-first, package scope, where share
 - Two features import each other (cycle).
 - A folder named `utils`, `helpers`, `common`, or `misc` with unrelated contents.
 - A library lists `react` / `react-dom` under `dependencies` instead of `peerDependencies`.
+- Any `*.test.*` / `*.spec.*` file, or test helper, inside `src/`.
 - Build/test config duplicated at both the repo root and a package.
 
 ## Verification — done when
 - The tree matches the chosen reference (apps/packages/features/shared in the right places).
 - `rs check` and `rs build` pass in every touched package.
+- Every package has a `tests/` folder mirroring `src/`; `find src -name '*.test.*' -o -name '*.spec.*'` returns nothing; `rs test` discovers and runs the tests in `tests/`.
 - The dependency rules are written in `AGENTS.md` and a violation is caught or the gap is stated.
 - No cycles: the dependency-graph check reports none.
