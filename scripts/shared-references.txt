@@ -1,0 +1,19 @@
+# Shared reference files vendored into skills so each skill is self-contained
+# (the skills CLI installs only a skill's own folder, never repo-root files).
+#
+# Format:  <skill> <file> [<file> ...]
+# Source of truth for each file: references/<file> at the repo root.
+# Copies land in skills/<skill>/references/<file>. Never edit a copy: edit the
+# root file, then run  bash scripts/sync-references.sh
+#
+# A skill that vendors a file must also vendor every shared file that file links to.
+
+product-flow            supply-chain.md external-skills.md
+react                   workspace-detection.md supply-chain.md external-skills.md
+zustand                 supply-chain.md external-skills.md
+tanstack                workspace-detection.md supply-chain.md external-skills.md
+setup-rstack            supply-chain.md
+setup-vite-plus         supply-chain.md
+setup-module-federation workspace-detection.md
+release-plan            definition-of-done.md
+project-structure       workspace-detection.md

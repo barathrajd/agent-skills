@@ -30,7 +30,7 @@ description: One sentence on what it does, then "Use when…" with the exact wor
 1. **Process over prose.** Steps with checkpoints, not advice. Advice gets skimmed and skipped.
 2. **Anti-rationalization.** Pre-write the rebuttals to the shortcuts the agent will be tempted to take.
 3. **Verification is non-negotiable.** End in evidence — a passing test, a build result, a runtime check. "Seems right" never closes a step.
-4. **Progressive disclosure.** Keep the body short; it only loads when the skill runs. Push long shared material into `references/` and link it.
+4. **Progressive disclosure.** Keep the body short; it only loads when the skill runs. Push long material into the skill's own `references/` folder and link it. A skill must be self-contained, because installs copy only the skill's folder. Material shared by several skills lives once in the repo-root `references/`, is listed in `scripts/shared-references.txt`, and is copied in by `bash scripts/sync-references.sh`; never edit the copies. `validate.sh` fails on dangling or stale links.
 5. **Scope discipline.** The skill touches only what it's for. If it starts doing a neighbouring skill's job, split it.
 
 ## Keep it lean

@@ -1,14 +1,14 @@
 # Structure: standalone web app
 
-Applies to a single-package React app (Rsbuild/Rstack or Vite+). Feature-first, with one-way dependencies.
+Applies to a single-package React app (Rstack or Vite+). Feature-first, with one-way dependencies. Config files and verification commands per toolchain: `references/toolchain-rstack.md`, `references/toolchain-vite-plus.md`.
 
 ## Layout
 ```
 .
 ├── package.json
-├── rstack.config.ts        # define.app / define.test / define.lint / define.fmt / define.staged
+├── <toolchain config>      # rstack.config.ts OR vite.config.ts: app build, test, lint, format, staged
 ├── tsconfig.json
-├── .rstack/hooks/
+├── <hooks dir>/            # .rstack/hooks OR .vite-hooks
 ├── public/
 └── src/
     ├── main.tsx            # entry (with Module Federation: tiny file that does import('./bootstrap'))
@@ -48,9 +48,10 @@ tests/
 - Tests go in `tests/`, never inside `src/`. Mirror the source path: `src/components/Button.tsx` → `tests/components/Button.test.tsx`. One public component per file.
 - Tests import the code under test through a path alias (`@/` → `src/`) or the feature's `index.ts`, not deep relative paths like `../../src/...`. Add the alias to `tsconfig.json` and the bundler/test config, and include `tests/` in `tsconfig.json` so it is type-checked.
 - Shared test helpers, fixtures, and mocks live in `tests/` (e.g. `tests/setup.ts`, `tests/helpers/`), not in `src/`.
-- Confirm `define.test()` picks up `tests/` (check the Rstest `include` default at rstest.rs/config) and set `include` explicitly if it does not.
+- Set the test config's `include` explicitly so `tests/` is picked up, then confirm the test command runs them (see the toolchain reference for the key and command).
 - Server state lives in `features/<x>/api` (TanStack Query); shared client state in `features/<x>/store` (Zustand); local state stays in the component. See the `react` skill.
 - Promote code to shared only when a second feature needs it.
+- **Inside a monorepo**, reusable components do not live in `src/components/`: they go in `packages/ui`, and core logic goes in `packages/core` (see `references/structure-monorepo.md`). The app's `src/components/` keeps only app-specific composites.
 - Avoid `utils/` catch-alls: name `lib/` modules by what they do (`lib/format-date.ts`).
 
 ## Variations

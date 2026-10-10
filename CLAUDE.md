@@ -20,7 +20,8 @@ A personal skill pack for AI coding agents. Each skill is a workflow at `skills/
 ## Guardrails
 - One active router only: `product-flow`. Don't add a second meta-router.
 - Don't duplicate a skill that already exists in a pack you depend on — reference it instead.
-- Shared checklists go in `references/` and are linked, not copy-pasted into each skill.
+- Skills are self-contained: installs copy only `skills/<name>/`, so every `references/*.md` a skill links must exist inside that folder. Material used by one skill lives there. Material shared by several lives once in root `references/`, is listed in `scripts/shared-references.txt`, and is copied in by `bash scripts/sync-references.sh`. Never edit a vendored copy; after changing root `references/`, re-run the sync. `validate.sh` fails on dangling or stale copies.
+- Skills for third-party libraries follow `docs/library-skills.md` (docs source, `Reviewed against` line, maintenance routine).
 - Never commit secrets.
 
 ## Conventions

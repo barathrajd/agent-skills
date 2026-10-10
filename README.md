@@ -25,22 +25,24 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── setup-commit-lint/SKILL.md    # Conventional Commits + staged checks
 │   ├── project-structure/SKILL.md    # folder layout for app / monorepo / library
 │   ├── react/SKILL.md                # React house conventions + router
+│   ├── base-ui/SKILL.md              # Base UI (@base-ui/react) component conventions
+│   ├── stylex/SKILL.md               # StyleX styling conventions
 │   ├── tanstack/SKILL.md             # official TanStack skills via Intent
 │   └── zustand/SKILL.md              # Zustand client-state conventions
-├── references/
+├── references/                  # SOURCE OF TRUTH for files shared by several skills
 │   ├── definition-of-done.md    # shared checklist skills pull in
 │   ├── workspace-detection.md   # detect app vs monorepo vs library; adapt paths
-│   ├── structure-app.md         # standalone app layout + dependency rules
-│   ├── structure-monorepo.md    # apps/ + packages/ layout, config placement
-│   ├── structure-library.md     # library layout, public API, peer deps
 │   ├── supply-chain.md          # install rules: no pipe-to-shell, pinned versions, consent
 │   └── external-skills.md       # every third-party skill we point at, pinned to a commit
 ├── templates/
 │   └── SKILL.template.md        # copy this to start a new skill
 ├── docs/
-│   └── skill-anatomy.md         # the rules for writing a good skill
+│   ├── skill-anatomy.md         # the rules for writing a good skill
+│   └── library-skills.md        # how library skills (Base UI, StyleX, ...) are added and kept current
 ├── scripts/
-│   └── validate.sh              # checks every SKILL.md's frontmatter + supply-chain lint
+│   ├── validate.sh              # checks frontmatter, supply-chain lint, self-contained skills
+│   ├── sync-references.sh       # copies shared references/ files into the skills that use them
+│   └── shared-references.txt    # which skill gets which shared file
 ├── .githooks/
 │   └── pre-commit               # runs the validator before each commit
 ├── .github/workflows/
@@ -88,7 +90,7 @@ cp -R skills/* /path/to/project/.claude/skills/
 | `setup-rstack` | Build toolchain — set up / migrate to the Rstack (rs) toolchain | "set up rstack", "migrate to rstack" |
 | `setup-module-federation` | Micro-frontends — share/consume remote modules across apps | "module federation", "micro-frontend", "expose a remote" |
 | `setup-commit-lint` | Commit workflow — Conventional Commits + staged checks (toolchain-aware) | "set up commitlint", "commit hooks" |
-| `project-structure` | Folder layout — structure for a web app, monorepo, or library with dependency rules | "project structure", "folder structure", "monorepo layout", "where should this live" |
+| `project-structure` | Folder layout — web app, monorepo (reusable UI in `packages/ui`, core logic in `packages/core`), or library; tests in `tests/`; works with Rstack or Vite+ | "project structure", "folder structure", "monorepo layout", "where should this live" |
 | `roadmap` | Strategic sequencing — maintains ROADMAP.md (Now/Next/Later) | "roadmap", "prioritize", "what's next" |
 | `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes PLAN.md | "plan this", "spec this", "grill me" |
 | `design-doc` | Technical design — writes DESIGN.md before non-trivial builds | "design this", "how should we build X" |
@@ -96,7 +98,9 @@ cp -R skills/* /path/to/project/.claude/skills/
 | `run-the-plan` | Execution — builds PLAN.md in test-first slices | "build it", "run the plan", "implement this" |
 | `release-plan` | Release planning — maintains RELEASE.md (feature-based versioned cuts) | "plan a release", "what's in the next release" |
 | `setup-release-please` | Release automation — wires up GitHub-side releases from Conventional Commits | "set up releases", "add release-please" |
-| `react` | React umbrella — house conventions + routes to tanstack/zustand | "react", "react best practices", "structure this component" |
+| `react` | React umbrella — house conventions + routes to tanstack/zustand/base-ui/stylex | "react", "react best practices", "structure this component" |
+| `base-ui` | Base UI (`@base-ui/react`) — unstyled primitives, `render` composition, docs matched to the installed version | "base ui", "build a dialog/menu/select", "add a component to packages/ui" |
+| `stylex` | StyleX styling — `create`/`props`, typed style props, tokens, bundler setup, use with Base UI | "stylex", "design tokens", "style this component" |
 | `tanstack` | Official TanStack skills via Intent (version-synced) | "tanstack", "intent install", "query/router best practices" |
 | `zustand` | Zustand client-state conventions (no official skill exists) | "zustand", "set up a store", "selectors", "persist" |
 
@@ -108,7 +112,9 @@ _Keep this table current — it's the fastest way for anyone (including an agent
 2. Fill in the frontmatter (`name` must match the folder) and the sections. Read `docs/skill-anatomy.md` first.
 3. Add a row to the Skill index above.
 4. If `product-flow` should route to it, add it to that skill's phase table.
-5. Commit. Re-install or reload plugins to pick it up.
+5. If it wraps a third-party library, follow `docs/library-skills.md`.
+6. If it links a shared file, add it to `scripts/shared-references.txt` and run `bash scripts/sync-references.sh`.
+7. Commit. Re-install or reload plugins to pick it up.
 
 ## Golden rules
 
