@@ -12,13 +12,13 @@ Scope: client/UI/app state only. Server data belongs to TanStack Query (see the 
 
 ## The two external skills — verified
 1. **`CJHarmath/claude-agents-skills` → `react-zustand-patterns`** (primary).
-   - **Verified:** the file exists at `skills/react-zustand-patterns/SKILL.md`, and it's the **shared web+native** variant — the correct one for `grand-line` (React web). *Not* `rn-zustand-patterns` (that's React Native only).
+   - **Verified:** the file exists at `skills/react-zustand-patterns/SKILL.md`, and it's the **shared web+native** variant — the right one for a React **web** app. *Not* `rn-zustand-patterns` (that's React Native only).
    - **Honesty check:** it's a small personal repo (~0 stars, few commits), not a popular pack. Content is solid (set() render timing, stale closures via `getState()`, async actions, selector stability, derived state, `persist` middleware, v4→v5 migration), but read it before trusting it — it's a reference, not an authority.
 2. **`microsoft/skills` → `zustand-store-ts`** (alternative).
    - Microsoft's zero-config TypeScript store template (store/action separation, `subscribeWithSelector`). Note: Microsoft-authored, **not** official Zustand.
 
 ### Install (project-scoped, no `-g`)
-`CJHarmath` installs via manual copy or its `install.sh`; the reliable project-scoped path is a direct copy of the one folder:
+`CJHarmath` installs via manual copy or its `install.sh`; the reliable project-scoped path is a direct copy of the one folder into the **repo root** skills dir (shared by every package in a monorepo):
 ```bash
 # clone once, then copy just the web-correct skill into the project:
 cp -r claude-agents-skills/skills/react-zustand-patterns ./.claude/skills/

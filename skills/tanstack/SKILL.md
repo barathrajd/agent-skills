@@ -11,7 +11,7 @@ TanStack publishes agent skills *inside its npm packages* (`node_modules/<pkg>/s
 Source of truth: tanstack.com (Intent docs + each library's "Agent Skills" page).
 
 ## When to Use
-- Setting up TanStack guidance in a repo that already uses TanStack (e.g. `grand-line`).
+- Setting up TanStack guidance in a repo that already uses TanStack.
 - The agent is writing Query/Router/Store code and should follow version-correct patterns.
 - Refreshing mappings after upgrading TanStack packages.
 
@@ -24,10 +24,12 @@ Source of truth: tanstack.com (Intent docs + each library's "Agent Skills" page)
 ### 1. Confirm the packages are installed
 Intent only wires skills for packages present in `node_modules`. Confirm what the repo uses (e.g. `@tanstack/react-query`, `@tanstack/react-router`). Keep `@tanstack/intent` in devDependencies and commit the lockfile for CI.
 
+> **Workspace note:** detect the repo shape first (see `references/workspace-detection.md`). In a monorepo, run `intent install` from the **repo root** — it writes skill permissions into the nearest owning `package.json` (per-package in a workspace) and the guidance block into a root config file. Run it again per package only if different packages use different TanStack packages.
+
 ### 2. Run intent install (project-scoped)
 From the repo root:
 ```bash
-# in grand-line (uses pnpm)
+# pnpm shown — use your package manager's dlx/npx equivalent
 pnpm dlx @tanstack/intent@latest install
 ```
 First run is interactive (needs a TTY, Node ≥ 20.12): choose **Enable all**, specific packages, a whole scope (`@tanstack/*`), or individual skills. It confirms once, then writes the guidance block. Use `--dry-run` to preview without writing.

@@ -27,7 +27,8 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── tanstack/SKILL.md             # official TanStack skills via Intent
 │   └── zustand/SKILL.md              # Zustand client-state conventions
 ├── references/
-│   └── definition-of-done.md    # shared checklist skills pull in
+│   ├── definition-of-done.md    # shared checklist skills pull in
+│   └── workspace-detection.md   # detect app vs monorepo vs library; adapt paths
 ├── templates/
 │   └── SKILL.template.md        # copy this to start a new skill
 ├── docs/

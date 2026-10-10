@@ -26,7 +26,7 @@ Wire a project as a Module Federation **producer** (exposes modules), **consumer
 | **Angular** | `@angular-architects/module-federation` (or Nx) |
 | **Metro / React Native** | Metro MF |
 
-> For `grand-line` (React + Vite+), use `@module-federation/vite`; add Bridge (`@module-federation/bridge-react`) for app-level/cross-framework loading.
+> For a React + Vite/Vite+ app, use `@module-federation/vite`; add Bridge (`@module-federation/bridge-react`) for app-level/cross-framework loading. Detect the repo shape first (see `references/workspace-detection.md`) — in a monorepo, each producer/consumer is its own package with its own `module-federation.config.ts`.
 
 ## Core config options (`module-federation.config.ts`)
 | Option | What it does |

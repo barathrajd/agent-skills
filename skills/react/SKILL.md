@@ -10,12 +10,18 @@ One entry point for React work in this stack. It encodes how *we* write React he
 - **Data fetching / server state** → `tanstack` (official TanStack Intent).
 - **Client state** → `zustand`.
 
-Everything else (component shape, hooks, TypeScript, rendering, testing) lives below. Scope: React 18+, TypeScript, Vite+, no React Native. For `grand-line`: React front end in `apps/web`, Node/Express/Postgres/Drizzle behind it.
+Everything else (component shape, hooks, TypeScript, rendering, testing) lives below. Scope: React 18+ and TypeScript, bundler-agnostic (Vite / Vite+ / Rstack / Next), web only (not React Native).
 
 ## When to Use
-- Starting or reviewing a React component, hook, or feature in this repo.
+- Starting or reviewing a React component, hook, or feature in any repo.
 - Deciding where state belongs (server vs client vs local).
 - Setting up a new contributor on the house React conventions.
+
+## Detect the workspace first
+Don't assume a layout. Figure out the repo shape before writing files — it changes where React code lives and where skills install. See `references/workspace-detection.md`. In short:
+- **Standalone app** — React code under the root `src/`.
+- **Monorepo** — the React app is one package (e.g. `apps/<name>` or `packages/<name>`); run React tooling in that package, keep repo-wide config at the root, install skills once at the root.
+- **Library** — reusable components, no app shell; library-mode build, and `react`/`react-dom` are `peerDependencies`, not bundled.
 
 ## House conventions (the short version)
 | Area | Rule |
@@ -42,7 +48,7 @@ These are *supplementary* references, not house authority. The strongest matches
 - `react-testing` — Jest + React Testing Library + MSW.
 - `react-async-patterns`, `react-state-flows` — async flows and multi-step operations.
 
-Project-scoped install (no `-g`), run from the repo root:
+Project-scoped install (no `-g`), run from the **repo root** (so every package in a monorepo shares them):
 ```bash
 # reliable: copy the folders straight in
 # (clone the repo once, then:)
