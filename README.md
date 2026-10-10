@@ -32,13 +32,15 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── workspace-detection.md   # detect app vs monorepo vs library; adapt paths
 │   ├── structure-app.md         # standalone app layout + dependency rules
 │   ├── structure-monorepo.md    # apps/ + packages/ layout, config placement
-│   └── structure-library.md     # library layout, public API, peer deps
+│   ├── structure-library.md     # library layout, public API, peer deps
+│   ├── supply-chain.md          # install rules: no pipe-to-shell, pinned versions, consent
+│   └── external-skills.md       # every third-party skill we point at, pinned to a commit
 ├── templates/
 │   └── SKILL.template.md        # copy this to start a new skill
 ├── docs/
 │   └── skill-anatomy.md         # the rules for writing a good skill
 ├── scripts/
-│   └── validate.sh              # checks every SKILL.md's frontmatter
+│   └── validate.sh              # checks every SKILL.md's frontmatter + supply-chain lint
 ├── .githooks/
 │   └── pre-commit               # runs the validator before each commit
 ├── .github/workflows/
@@ -113,3 +115,4 @@ _Keep this table current — it's the fastest way for anyone (including an agent
 - One active router only. `product-flow` is it — don't also enable another pack's meta-router.
 - Keep skills lean. Description earns its place in context on every turn; the body loads only when used.
 - Every skill ends in verifiable evidence, never "seems right".
+- Install nothing unpinned or unconfirmed. External skills come only from `references/external-skills.md`, at their pinned commit, after the user says yes; no `curl | bash`, no `@latest`. See `references/supply-chain.md`. `scripts/validate.sh` enforces it in CI.
