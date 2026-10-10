@@ -47,7 +47,7 @@ Wire a project as a Module Federation **producer** (exposes modules), **consumer
 Add the package for your bundler from the table above (e.g. `pnpm add -D @module-federation/vite`). Confirm the bundler and whether you need SSR before choosing — Next.js/Modern.js/Angular have their own guides.
 
 ### 2. Add the plugin and create module-federation.config.ts
-Register the plugin in the bundler config, pointing at `module-federation.config.ts`:
+Register the plugin in the bundler config, pointing at `module-federation.config.ts`. For copy-paste setup per bundler (Vite, Rsbuild/Rstack, Rspack, Webpack — install + config + plugin registration), see `references/bundler-examples.md`. The shape is:
 ```ts
 import { createModuleFederationConfig } from '@module-federation/enhanced';
 export default createModuleFederationConfig({
@@ -61,6 +61,7 @@ export default createModuleFederationConfig({
   dts: true,
 });
 ```
+The import path and plugin registration differ by bundler (see the examples file); the config fields are the same everywhere.
 
 ### 3. Share dependencies correctly
 Mark framework singletons (`react`, `react-dom`, router, state libs) as `singleton: true` to avoid duplicate instances. Use `shareStrategy` and, if needed, multiple share scopes for isolation. Prefer `mf-manifest.json` remote entries for type hints and preloading.
