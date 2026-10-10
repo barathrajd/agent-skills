@@ -7,20 +7,35 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 ```
 .
 ├── .claude-plugin/
-│   ├── plugin.json         # plugin manifest (name, version, description)
-│   └── marketplace.json    # makes this repo installable as a marketplace
-├── skills/                 # one folder per skill — this is what agents discover
-│   ├── product-flow/SKILL.md
-│   ├── rnd-product-plan/SKILL.md
-│   └── run-the-plan/SKILL.md
-├── references/             # shared checklists skills can pull in
-│   └── definition-of-done.md
+│   ├── plugin.json              # plugin manifest (name, version, description)
+│   └── marketplace.json         # makes this repo installable as a marketplace
+├── skills/                      # one folder per skill — this is what agents discover
+│   ├── product-flow/SKILL.md         # orchestrator / router
+│   ├── bootstrap-context/SKILL.md    # → AGENTS.md + GLOSSARY.md
+│   ├── roadmap/SKILL.md              # → ROADMAP.md
+│   ├── rnd-product-plan/SKILL.md     # → PLAN.md
+│   ├── design-doc/SKILL.md           # → DESIGN.md
+│   ├── write-adr/SKILL.md            # → docs/adr/NNNN-*.md
+│   ├── run-the-plan/SKILL.md         # builds the plan in test-first slices
+│   ├── release-plan/SKILL.md         # → RELEASE.md
+│   └── setup-release-please/SKILL.md # wires up release automation
+├── references/
+│   └── definition-of-done.md    # shared checklist skills pull in
 ├── templates/
-│   └── SKILL.template.md   # copy this to start a new skill
+│   └── SKILL.template.md        # copy this to start a new skill
 ├── docs/
-│   └── skill-anatomy.md    # the rules for writing a good skill
+│   └── skill-anatomy.md         # the rules for writing a good skill
+├── scripts/
+│   └── validate.sh              # checks every SKILL.md's frontmatter
+├── .githooks/
+│   └── pre-commit               # runs the validator before each commit
+├── .github/workflows/
+│   ├── validate.yml             # CI: validate skills on push/PR
+│   └── release-please.yml       # CI: automated releases from Conventional Commits
+├── release-please-config.json   # release-please settings (type: simple)
+├── .release-please-manifest.json# tracks the current version
 ├── README.md
-└── CLAUDE.md               # guidance for an agent editing THIS repo
+└── CLAUDE.md                    # guidance for an agent editing THIS repo
 ```
 
 The only hard convention: **every skill lives at `skills/<name>/SKILL.md`** with YAML frontmatter. Everything else is optional structure.
