@@ -53,6 +53,8 @@ Assess which phase the user is in from what they ask and what artifacts exist (`
 | Phase | Invoke | Trigger / signal |
 | --- | --- | --- |
 | S. Standing setup | `bootstrap-context` | New repo, no `AGENTS.md`; "set up the rules" (once per repo) |
+| S. Toolchain setup | `setup-vite-plus` or `setup-rstack` | Standing up / migrating the build toolchain |
+| S. Commit workflow | `setup-commit-lint` | Enforcing Conventional Commits + staged checks |
 | R. Roadmap | `roadmap` | Deciding/reordering what to build next; "what's next", "prioritize" |
 | 0. Big effort? | `wayfinder` | Large/ambiguous initiative that spans many decisions |
 | 1. Shape the idea | `grill-me`, then `research` / `prototype` as unknowns appear | New idea, vague ask, "what should we build" |

@@ -70,6 +70,9 @@ cp -R skills/* /path/to/project/.claude/skills/
 | --- | --- | --- |
 | `product-flow` | Orchestrator — installs the curated set and routes the lifecycle | "set up the flow", "start a feature", "what's next" |
 | `bootstrap-context` | Standing setup — writes AGENTS.md + GLOSSARY.md for the repo | "set up AGENTS.md", "bootstrap context" (once per repo) |
+| `setup-vite-plus` | Build toolchain — set up / migrate to the Vite+ (vp) toolchain | "set up vite plus", "migrate to vite+" |
+| `setup-rstack` | Build toolchain — set up / migrate to the Rstack (rs) toolchain | "set up rstack", "migrate to rstack" |
+| `setup-commit-lint` | Commit workflow — Conventional Commits + staged checks (toolchain-aware) | "set up commitlint", "commit hooks" |
 | `roadmap` | Strategic sequencing — maintains ROADMAP.md (Now/Next/Later) | "roadmap", "prioritize", "what's next" |
 | `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes PLAN.md | "plan this", "spec this", "grill me" |
 | `design-doc` | Technical design — writes DESIGN.md before non-trivial builds | "design this", "how should we build X" |
