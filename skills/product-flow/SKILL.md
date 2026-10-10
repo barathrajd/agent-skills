@@ -52,6 +52,7 @@ Assess which phase the user is in from what they ask and what artifacts exist (`
 
 | Phase | Invoke | Trigger / signal |
 | --- | --- | --- |
+| S. Standing setup | `bootstrap-context` | New repo, no `AGENTS.md`; "set up the rules" (once per repo) |
 | R. Roadmap | `roadmap` | Deciding/reordering what to build next; "what's next", "prioritize" |
 | 0. Big effort? | `wayfinder` | Large/ambiguous initiative that spans many decisions |
 | 1. Shape the idea | `grill-me`, then `research` / `prototype` as unknowns appear | New idea, vague ask, "what should we build" |
@@ -72,7 +73,7 @@ Enforce these paths so every project lays out the same way:
 
 | Phase | File | Skill |
 | --- | --- | --- |
-| Standing (repo-wide) | `AGENTS.md`, `GLOSSARY.md` | hand-authored / bootstrap |
+| Standing (repo-wide) | `AGENTS.md`, `GLOSSARY.md` | `bootstrap-context` |
 | Strategic | `ROADMAP.md` | `roadmap` |
 | 1. R&D | `RESEARCH.md` (optional) | `research` |
 | 2. Spec | `SPEC.md` | `spec-driven-development` |
