@@ -31,8 +31,10 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── definition-of-done.md    # shared checklist skills pull in
 │   ├── workspace-detection.md   # detect app vs monorepo vs library; adapt paths
 │   ├── structure-app.md         # standalone app layout + dependency rules
-│   ├── structure-monorepo.md    # apps/ + packages/ layout, config placement
-│   ├── structure-library.md     # library layout, public API, peer deps
+│   ├── structure-monorepo.md    # apps/ + packages/core + packages/ui, dependency rules
+│   ├── structure-library.md     # library layout, public API, peer deps, core/ui flavors
+│   ├── toolchain-rstack.md      # Rstack: config placement, rs commands, verification
+│   ├── toolchain-vite-plus.md   # Vite+: config placement, vp commands, verification
 │   ├── supply-chain.md          # install rules: no pipe-to-shell, pinned versions, consent
 │   └── external-skills.md       # every third-party skill we point at, pinned to a commit
 ├── templates/
@@ -88,7 +90,7 @@ cp -R skills/* /path/to/project/.claude/skills/
 | `setup-rstack` | Build toolchain — set up / migrate to the Rstack (rs) toolchain | "set up rstack", "migrate to rstack" |
 | `setup-module-federation` | Micro-frontends — share/consume remote modules across apps | "module federation", "micro-frontend", "expose a remote" |
 | `setup-commit-lint` | Commit workflow — Conventional Commits + staged checks (toolchain-aware) | "set up commitlint", "commit hooks" |
-| `project-structure` | Folder layout — structure for a web app, monorepo, or library with dependency rules | "project structure", "folder structure", "monorepo layout", "where should this live" |
+| `project-structure` | Folder layout — web app, monorepo (reusable UI in `packages/ui`, core logic in `packages/core`), or library; tests in `tests/`; works with Rstack or Vite+ | "project structure", "folder structure", "monorepo layout", "where should this live" |
 | `roadmap` | Strategic sequencing — maintains ROADMAP.md (Now/Next/Later) | "roadmap", "prioritize", "what's next" |
 | `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes PLAN.md | "plan this", "spec this", "grill me" |
 | `design-doc` | Technical design — writes DESIGN.md before non-trivial builds | "design this", "how should we build X" |
