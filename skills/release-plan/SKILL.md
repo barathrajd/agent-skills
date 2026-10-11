@@ -22,7 +22,7 @@ If absent, create it with two parts: **Upcoming** (planned releases) and **Relea
 For each upcoming release: a **version** (or codename), a **target date**, and a one-line **theme/goal**. Keep a release scoped to a coherent theme, not "everything we can cram in".
 
 ### 3. List its features — pulled from the roadmap/plans
-Each feature is a line linking to its `ROADMAP.md` item and `PLAN.md`. Mark each `planned` / `in progress` / `done`. A release is only as real as the plans behind its features — if a feature has no plan, flag it, don't assume it.
+Each feature is a line linking to its `ROADMAP.md` item and its `plans/<slug>.md`. Mark each `planned` / `in progress` / `done`. A release is only as real as the plans behind its features — if a feature has no plan, flag it, don't assume it.
 
 ### 4. Attach the release gate
 Every release carries a checklist that must pass before it ships: all features `done`, tests green, `CONSTRAINTS.md` met, security check done (`security-and-hardening`), migration/rollback ready, docs/CHANGELOG updated. Reference the shared bar in `references/definition-of-done.md` rather than restating it.
@@ -39,7 +39,7 @@ When the gate passes and it ships, move the release from **Upcoming** to **Relea
 | "Cram one more feature into this release." | Scope creep slips the date for everything else in it. Push it to the next release. |
 
 ## Red Flags — stop and fix
-- A release lists features that have no `PLAN.md`.
+- A release lists features that have no plan file.
 - Feature statuses don't match the underlying plans.
 - No release gate, or the gate was skipped.
 - A `Released` entry is being edited after the fact.

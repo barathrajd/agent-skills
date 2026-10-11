@@ -13,7 +13,7 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── product-flow/SKILL.md         # orchestrator / router
 │   ├── bootstrap-context/SKILL.md    # → AGENTS.md + GLOSSARY.md
 │   ├── roadmap/SKILL.md              # → ROADMAP.md
-│   ├── rnd-product-plan/SKILL.md     # → PLAN.md
+│   ├── rnd-product-plan/SKILL.md     # → plans/<slug>.md + PLAN.md overview
 │   ├── design-doc/SKILL.md           # → DESIGN.md
 │   ├── write-adr/SKILL.md            # → docs/adr/NNNN-*.md
 │   ├── run-the-plan/SKILL.md         # builds the plan in test-first slices
@@ -92,10 +92,10 @@ cp -R skills/* /path/to/project/.claude/skills/
 | `setup-commit-lint` | Commit workflow — Conventional Commits + staged checks (toolchain-aware) | "set up commitlint", "commit hooks" |
 | `project-structure` | Folder layout — web app, monorepo (reusable UI in `packages/ui`, core logic in `packages/core`), or library; tests in `tests/`; works with Rstack or Vite+ | "project structure", "folder structure", "monorepo layout", "where should this live" |
 | `roadmap` | Strategic sequencing — maintains ROADMAP.md (Now/Next/Later) | "roadmap", "prioritize", "what's next" |
-| `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes PLAN.md | "plan this", "spec this", "grill me" |
+| `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes plans/<slug>.md and a short PLAN.md overview | "plan this", "spec this", "grill me" |
 | `design-doc` | Technical design — writes DESIGN.md before non-trivial builds | "design this", "how should we build X" |
 | `write-adr` | Knowledge sharing — records decisions as docs/adr/NNNN-*.md | "record this decision", "write an ADR" |
-| `run-the-plan` | Execution — builds PLAN.md in test-first slices | "build it", "run the plan", "implement this" |
+| `run-the-plan` | Execution — builds a plan from plans/ in test-first slices | "build it", "run the plan", "implement this" |
 | `release-plan` | Release planning — maintains RELEASE.md (feature-based versioned cuts) | "plan a release", "what's in the next release" |
 | `setup-release-please` | Release automation — wires up GitHub-side releases from Conventional Commits | "set up releases", "add release-please" |
 | `react` | React umbrella — house conventions + routes to tanstack/zustand/base-ui/stylex | "react", "react best practices", "structure this component" |

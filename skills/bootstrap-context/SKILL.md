@@ -31,7 +31,7 @@ Keep it tight. Sections:
 - **Commands** — install / run / test / lint / build, as literal copy-paste lines.
 - **Conventions** — the handful of rules that actually matter here.
 - **Boundaries** — do-not-touch / do-not-break.
-- **Where things live** — point to `ROADMAP.md`, `PLAN.md`, `DESIGN.md`, `CONSTRAINTS.md`, `docs/adr/`, `GLOSSARY.md`.
+- **Where things live** — point to `ROADMAP.md`, `PLAN.md` (overview), `plans/`, `DESIGN.md`, `CONSTRAINTS.md`, `docs/adr/`, `GLOSSARY.md`.
 - **Non-negotiables** — the five: surface assumptions before building; stop and ask when requirements conflict; push back when warranted; prefer the boring, obvious solution; touch only what you're asked to touch.
 
 ### 3. Write GLOSSARY.md
