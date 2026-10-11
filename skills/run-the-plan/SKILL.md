@@ -6,16 +6,16 @@ description: Executes a confirmed PLAN.md by building it in thin, test-first sli
 # Run the Plan
 
 ## Overview
-Take a confirmed `PLAN.md` and ship it one thin slice at a time. Each slice is implemented test-first, verified with real evidence, and committed on its own. The plan is the contract: build what it says, flag anything it doesn't cover, and never silently expand scope.
+Take a confirmed plan (`plans/<slug>.md`) and ship it one thin slice at a time. Each slice is implemented test-first, verified with real evidence, and committed on its own. The plan is the contract: build what it says, flag anything it doesn't cover, and never silently expand scope.
 
 ## When to Use
-- A confirmed `PLAN.md` exists and the user wants it built.
+- A confirmed plan in `plans/` exists and the user wants it built.
 - The user says "build", "implement", "run the plan", "start the milestones", or "ship it".
 
 ## Process
 
 ### 1. Load the plan and confirm the slice
-Read `PLAN.md`. Take the next unbuilt milestone. If the plan is missing, incomplete, or unconfirmed, stop and route back to `rnd-product-plan` — do not invent requirements.
+Pick the plan: the path the user gave, else the `Now` item in `ROADMAP.md`, else the single entry in `PLAN.md`; if several qualify, ask which. Read only that plan file, not the others. Take the next unbuilt milestone. If the plan is missing, incomplete, or unconfirmed, stop and route back to `rnd-product-plan` — do not invent requirements.
 - Restate the slice's acceptance criteria in one line before writing anything.
 
 ### 2. Red — write the failing test first
@@ -51,7 +51,7 @@ Update the plan's milestone status. Move to the next slice. When all milestones 
 | "While I'm here I'll refactor this other file." | Touch only what the slice needs. Unrelated cleanup is its own change. |
 
 ## Red Flags — stop and fix
-- You're implementing something that isn't in `PLAN.md`.
+- You're implementing something that isn't in the plan file.
 - You wrote code before a failing test existed.
 - A single commit spans multiple milestones or mixes a refactor with new behavior.
 - You're reporting "done" without a test run, build result, or runtime check.
@@ -62,4 +62,4 @@ Update the plan's milestone status. Move to the next slice. When all milestones 
 - The full suite is green and the build is clean.
 - User-facing behavior has a runtime check or screenshot.
 - The change is committed alone with a descriptive message.
-- `PLAN.md` milestone status is updated.
+- The plan file's milestone status is updated.

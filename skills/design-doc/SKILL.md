@@ -9,7 +9,7 @@ description: Writes a technical design document (DESIGN.md) for a feature before
 Produce a `DESIGN.md` that explains *how* a feature will be built and *why* this approach over the alternatives. Sits between the spec (what) and the plan (tasks). Skip it for trivial changes; write it when a choice is hard to reverse or crosses a system boundary.
 
 ## When to Use
-- A `PLAN.md`/`SPEC.md` exists and the work is architecturally non-trivial.
+- A plan in `plans/` or a `SPEC.md` exists and the work is architecturally non-trivial.
 - A change touches data models, public APIs, or multiple systems.
 - The user says "design this", "design doc", "how should we build…".
 

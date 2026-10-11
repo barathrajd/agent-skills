@@ -34,7 +34,7 @@ Create `docs/adr/NNNN-short-title.md` with:
 Don't rewrite an accepted ADR. If the decision changes, write a new ADR and mark the old one `Superseded by NNNN`. The history is the point.
 
 ### 5. Link it
-Reference the ADR from the relevant `DESIGN.md`/`PLAN.md` so the decision is discoverable from the work it governs.
+Reference the ADR from the relevant `DESIGN.md` or plan file so the decision is discoverable from the work it governs.
 
 ## Rationalizations — and the rebuttals
 | Excuse | Rebuttal |

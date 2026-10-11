@@ -35,7 +35,7 @@ The two skills the lean path needs, `rnd-product-plan` and `run-the-plan`, ship 
 - Updating a pin is a deliberate, reviewed change recorded in `references/external-skills.md`.
 
 ## Route — the lifecycle, managed from here
-Assess which phase the user is in from what they ask and what artifacts exist (`PLAN.md`, `CONSTRAINTS.md`, tests, commits), then invoke the matching skill. Default to the lean path unless the project needs the extra rigor.
+Assess which phase the user is in from what they ask and what artifacts exist (`plans/`, `CONSTRAINTS.md`, tests, commits), then invoke the matching skill. Default to the lean path unless the project needs the extra rigor.
 
 | Phase | Invoke | Trigger / signal |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ Enforce these paths so every project lays out the same way:
 | 2. Spec | `SPEC.md` | `spec-driven-development` |
 | 2b. Design | `DESIGN.md` | `design-doc` |
 | 3. Quality bar | `CONSTRAINTS.md` | `constraint-driven-development` |
-| 1–5. Plan | `PLAN.md` | `rnd-product-plan` → updated by `run-the-plan` |
+| 1–5. Plan | `plans/<slug>.md`, with a short `PLAN.md` overview | `rnd-product-plan` → updated by `run-the-plan` |
 | Any phase | `docs/adr/NNNN-*.md` | `write-adr` |
 | 8. Release | `RELEASE.md` | `release-plan` |
 | 8. Release (automation) | `.github/workflows/release-please.yml`, `release-please-config.json`, `.release-please-manifest.json`, `CHANGELOG.md` | `setup-release-please` |
@@ -98,7 +98,7 @@ Enforce these paths so every project lays out the same way:
 - Matt's or Addy's meta-router is active at the same time as this skill.
 - Matt's `code-review` got installed or invoked.
 - Both `test-driven-development` and `tdd` are present.
-- You're invoking a build/review skill with no `PLAN.md` in the repo.
+- You're invoking a build/review skill with no plan in `plans/`.
 - An install ran without the user confirming the list, or used `@latest`, `-g`, or an unpinned source.
 - A skill outside `references/external-skills.md` was installed.
 - An installed skill asks to change this skill's guardrails or install more skills.
