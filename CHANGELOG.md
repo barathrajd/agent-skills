@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/barathrajd/agent-skills/compare/v0.5.0...v0.6.0) (2026-10-11)
+
+
+### Features
+
+* **skills:** add clean-global-skills ([f2cbe84](https://github.com/barathrajd/agent-skills/commit/f2cbe8474d55fdafe2382bc5cd0a844fe13cd422))
+* **skills:** add clean-global-skills ([219bbd5](https://github.com/barathrajd/agent-skills/commit/219bbd55b4bf0bf1bba99d9b66a4a83fb3d9ebd4))
+
 ## [0.5.0](https://github.com/barathrajd/agent-skills/compare/v0.4.0...v0.5.0) (2026-10-11)
 
 

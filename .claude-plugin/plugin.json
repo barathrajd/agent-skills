@@ -1,6 +1,6 @@
 {
   "name": "agent-skills",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Personal engineering skills for AI coding agents. A growing collection; the R&D-to-ship workflow is orchestrated by product-flow.",
   "author": {
     "name": "barathrajd"
