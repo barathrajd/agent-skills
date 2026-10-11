@@ -37,8 +37,12 @@ git -C "$tmp/src" checkout --quiet <sha>
 # locate the skill folder (usually skills/<skill>/) and READ it before copying
 find "$tmp/src" -type d -name '<skill>' -not -path '*/.git/*'
 cat "$tmp/src/skills/<skill>/SKILL.md"
-cp -R "$tmp/src/skills/<skill>" ./.claude/skills/
+mkdir -p ./.agents/skills ./.claude/skills
+cp -R "$tmp/src/skills/<skill>" ./.agents/skills/
+ln -s ../../.agents/skills/<skill> ./.claude/skills/<skill>
 ```
+
+`.agents/skills/` is read by Codex and OpenCode; Claude Code reads `.claude/skills/`, so the link serves it from the same copy.
 
 Install at the repo root so every package in a monorepo shares it. Do not use `npx skills add`, `@latest`, or `-g` for these sources: they follow the default branch, so the content can change after the pin.
 

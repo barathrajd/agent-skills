@@ -8,6 +8,10 @@
 #   - has a non-empty description:
 #   - (warning) description contains "use when" trigger phrases
 #
+# Also fails on a description over 1024 characters or a name that is not
+# lowercase-hyphen (OpenCode rules), and warns when all descriptions together
+# near Codex's list budget.
+#
 # Also fails if a skill links to a references/ file it does not ship, or if a
 # vendored shared reference is stale (see scripts/sync-references.sh).
 #
@@ -38,6 +42,7 @@ fi
 errors=0
 warnings=0
 count=0
+desc_total=0
 
 for dir in "$SKILLS_DIR"/*/; do
   [ -d "$dir" ] || continue
@@ -74,6 +79,9 @@ for dir in "$SKILLS_DIR"/*/; do
       else if (namev != folder) { print "ERR name-mismatch:" namev }
       if (descv == "") { print "ERR no-description" }
       else if (tolower(descv) !~ /use when|when the user|when you/) { print "WARN no-use-when" }
+      if (length(descv) > 1024) { print "ERR description-too-long:" length(descv) }
+      if (namev != "" && (namev !~ /^[a-z0-9]+(-[a-z0-9]+)*$/ || length(namev) > 64)) { print "ERR bad-name-format" }
+      print "DESCLEN " length(descv)
     }
   ' "$file")"
 
@@ -85,6 +93,9 @@ for dir in "$SKILLS_DIR"/*/; do
       "ERR no-name")             echo "✗ $name — missing 'name:' in frontmatter"; file_err=1 ;;
       "ERR name-mismatch:"*)     echo "✗ $name — 'name:' is '${line#ERR name-mismatch:}', must match folder '$name'"; file_err=1 ;;
       "ERR no-description")      echo "✗ $name — missing 'description:'"; file_err=1 ;;
+      "ERR description-too-long:"*) echo "✗ $name — description is ${line#ERR description-too-long:} characters (max 1024; OpenCode and the open skills spec reject longer)"; file_err=1 ;;
+      "ERR bad-name-format")     echo "✗ $name — name must be lowercase letters, digits and single hyphens, at most 64 characters (OpenCode rule)"; file_err=1 ;;
+      "DESCLEN "*)               desc_total=$((desc_total + ${line#DESCLEN })) ;;
       "WARN no-use-when")        echo "⚠ $name — description has no 'use when …' trigger phrases (recommended)"; warnings=$((warnings + 1)) ;;
     esac
   done <<EOF
@@ -97,6 +108,15 @@ EOF
     echo "✓ $name"
   fi
 done
+
+# Agents list every description on each run. Codex shortens or drops skills past
+# its list budget (about 8,000 characters when the context window is unknown).
+if [ "$desc_total" -gt 7000 ]; then
+  echo "⚠ descriptions total $desc_total characters; Codex's skill list budget is about 8000. Shorten descriptions before adding more skills."
+  warnings=$((warnings + 1))
+else
+  echo "✓ descriptions total $desc_total characters (under the ~8000 Codex list budget)"
+fi
 
 # --- Supply-chain lint -------------------------------------------------------
 # Scans fenced code blocks in skills/, references/, docs/ and templates/ for
