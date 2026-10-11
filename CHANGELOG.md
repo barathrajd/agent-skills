@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/barathrajd/agent-skills/compare/v0.4.0...v0.5.0) (2026-10-11)
+
+
+### Features
+
+* add Gemini CLI support ([aa6e660](https://github.com/barathrajd/agent-skills/commit/aa6e66034bcd8826ea8929a52ae267718496083a))
+* support Codex and OpenCode alongside Claude Code ([fddd0d7](https://github.com/barathrajd/agent-skills/commit/fddd0d7bf656ea89cbb8916665d0b4e8a9e0f948))
+
 ## [0.4.0](https://github.com/barathrajd/agent-skills/compare/v0.3.0...v0.4.0) (2026-10-11)
 
 
