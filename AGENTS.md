@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for an agent (Claude Code, Codex, OpenCode, or any other) working **on this repository** (editing or adding skills), not for the skills themselves.
+Guidance for an agent (Claude Code, Codex, OpenCode, Gemini CLI, or any other) working **on this repository** (editing or adding skills), not for the skills themselves.
 
 ## What this repo is
 A personal skill pack for AI coding agents. Each skill is a workflow at `skills/<name>/SKILL.md`. The repo is also a Claude Code plugin (`.claude-plugin/plugin.json`) and its own marketplace (`.claude-plugin/marketplace.json`).
