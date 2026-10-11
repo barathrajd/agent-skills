@@ -51,12 +51,14 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 ├── release-please-config.json   # release-please settings (type: simple)
 ├── .release-please-manifest.json# tracks the current version
 ├── README.md
-└── CLAUDE.md                    # guidance for an agent editing THIS repo
+├── AGENTS.md                    # guidance for any agent editing THIS repo
+├── CLAUDE.md                    # one line: @AGENTS.md (Claude Code reads this file)
+└── GEMINI.md                    # one line: @AGENTS.md (Gemini CLI reads this file)
 ```
 
 The only hard convention: **every skill lives at `skills/<name>/SKILL.md`** with YAML frontmatter. Everything else is optional structure.
 
-## Install (three ways)
+## Install
 
 **A. As a Claude Code plugin (this repo as its own marketplace)**
 ```
@@ -71,12 +73,21 @@ npx skills add barathrajd/agent-skills            # all skills
 npx skills add barathrajd/agent-skills --skill product-flow
 ```
 
-**C. Loose, no packaging** — copy skill folders straight in:
+**C. Loose, no packaging** — copy skill folders straight in. Pick the folder your agent reads (table below):
 ```bash
-cp -R skills/* ~/.claude/skills/            # global
-# or into a project:
-cp -R skills/* /path/to/project/.claude/skills/
+cp -R skills/* /path/to/project/.agents/skills/     # Codex, OpenCode, Gemini CLI
+cp -R skills/* /path/to/project/.claude/skills/     # Claude Code (OpenCode also reads this)
 ```
+
+### Which agent reads which folder
+| Agent | Project folder | Global folder |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
+| Codex | `.agents/skills/` (from the working directory up to the repo root) | `~/.agents/skills/` |
+| OpenCode | `.opencode/skills/`, `.claude/skills/`, `.agents/skills/` | `~/.config/opencode/skills/`, `~/.claude/skills/`, `~/.agents/skills/` |
+| Gemini CLI | `.gemini/skills/` or `.agents/skills/` (the latter wins) | `~/.gemini/skills/` or `~/.agents/skills/` |
+
+Every skill is a plain `SKILL.md` with `name` and `description`, which all four accept, so nothing needs converting. A project install with the skills CLI (B) writes to `.agents/skills/` and links `.claude/skills/` to it, so one install serves all four. Codex and OpenCode also read `AGENTS.md`; Claude Code reads `CLAUDE.md` and Gemini CLI reads `GEMINI.md`, and here both are one-line pointers to `AGENTS.md`. Gemini CLI can also install a skill from a Git URL (`gemini skills install <url> --path skills/<name> --scope workspace`) and shows each skill's directory for approval before it activates. The plugin route (A) is Claude Code only.
 
 > The manifest `name` (`agent-skills`) becomes the slash-command prefix. Want shorter commands? Change only `"name"` in `plugin.json` to something like `ash` → `/ash:product-flow`, while keeping the repo named `agent-skills`.
 
