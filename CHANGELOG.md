@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/barathrajd/agent-skills/compare/v0.3.0...v0.4.0) (2026-10-11)
+
+
+### Features
+
+* **skills:** one plan file per feature in plans/, short PLAN.md overview ([19a882b](https://github.com/barathrajd/agent-skills/commit/19a882b8b8304a10616450ee1334e8efdeda7839))
+* **skills:** one plan file per feature in plans/, short PLAN.md overview ([d33b9cc](https://github.com/barathrajd/agent-skills/commit/d33b9cc4f95bb6f00777b8c55602cd3740ad1dce))
+
 ## [0.3.0](https://github.com/barathrajd/agent-skills/compare/v0.2.1...v0.3.0) (2026-10-10)
 
 
