@@ -23,6 +23,7 @@ A growing personal collection of engineering skills for AI coding agents. The fi
 │   ├── setup-rstack/SKILL.md         # Rstack (rs) toolchain setup
 │   ├── setup-module-federation/SKILL.md # micro-frontends / remotes
 │   ├── setup-commit-lint/SKILL.md    # Conventional Commits + staged checks
+│   ├── clean-global-skills/SKILL.md  # audit global vs project skills, clean up with a backup
 │   ├── project-structure/SKILL.md    # folder layout for app / monorepo / library
 │   ├── react/SKILL.md                # React house conventions + router
 │   ├── base-ui/SKILL.md              # Base UI (@base-ui/react) component conventions
@@ -102,6 +103,7 @@ Every skill is a plain `SKILL.md` with `name` and `description`, which all four 
 | `setup-module-federation` | Micro-frontends — share/consume remote modules across apps | "module federation", "micro-frontend", "expose a remote" |
 | `setup-commit-lint` | Commit workflow — Conventional Commits + staged checks (toolchain-aware) | "set up commitlint", "commit hooks" |
 | `project-structure` | Folder layout — web app, monorepo (reusable UI in `packages/ui`, core logic in `packages/core`), or library; tests in `tests/`; works with Rstack or Vite+ | "project structure", "folder structure", "monorepo layout", "where should this live" |
+| `clean-global-skills` | Housekeeping — audits global skills, resolves clashes with project skills, moves extras out with a backup | "clean up global skills", "skills clashing", "skills burning tokens" |
 | `roadmap` | Strategic sequencing — maintains ROADMAP.md (Now/Next/Later) | "roadmap", "prioritize", "what's next" |
 | `rnd-product-plan` | R&D + planning — grills the idea, resolves unknowns, writes plans/<slug>.md and a short PLAN.md overview | "plan this", "spec this", "grill me" |
 | `design-doc` | Technical design — writes DESIGN.md before non-trivial builds | "design this", "how should we build X" |
